@@ -59,8 +59,8 @@ global.tencentUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.fcmonline.a
  */
 
 // global.baseUrl = 'https://uat.app.fcmonline.com.cn:8808/';//FCM测试
-global.baseUrl = 'https://uat.app.fcmonline.com.cn:4438';//FCM测试uat
-global.baseH5Url = 'https://uat.app.fcmonline.com.cn:4436';
+// global.baseUrl = 'https://uat.app.fcmonline.com.cn:4438';//FCM测试uat
+// global.baseH5Url = 'https://uat.app.fcmonline.com.cn:4436';
 
-// global.baseUrl = 'https://app.fcmonline.com.cn';//正式
-// global.baseH5Url = 'https://m.app.fcmonline.com.cn:443';//正式
+global.baseUrl = 'https://app.fcmonline.com.cn';//正式
+global.baseH5Url = 'https://m.app.fcmonline.com.cn:443';//正式
