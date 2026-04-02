@@ -31,7 +31,7 @@ class SearchScreen extends SuperView {
 
     constructor(props) {
         super(props);
-        this.params = props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this._navigationHeaderView = {
             title: I18nUtil.translate('火车票') + (this.params.order ? I18nUtil.translate('（改签）') : ''),
             // rightButton: props.feeType === 1 ? ViewUtil.getRightButton('差旅标准', this._getTravelRule) : null

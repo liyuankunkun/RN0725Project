@@ -19,10 +19,10 @@ export default class NoticeDetailScreen extends SuperView {
         this._navigationHeaderView = {
             title: '消息详情'
         }
-        this.params = this.props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
     }
     renderBody() {
-        const { item } = this.props.navigation.state.params || {};
+        const { item } = this.params;
         const formatDate = (dateString) => {
             if (!dateString) return '-';
             const date = Util.Date.toDate(dateString);
@@ -65,7 +65,8 @@ export default class NoticeDetailScreen extends SuperView {
     }
 
     _getCompList = (index) => {
-           const { item } = this.props.navigation.state.params || {};
+           this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
+           const { item } = this.params;
            let model = {
                 Status: index,
                 MessageIdList: [item.MessageId],

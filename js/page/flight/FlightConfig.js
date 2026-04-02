@@ -17,15 +17,15 @@ import SearchScreen from './SearchScreen';
 // import FlightListScreen from './FlightListScreen';
 // import FlightFilterScreen from './FlightFilterScreen';
 // import FlightRuleScreen from './FlightRuleScreen';
-// import FlightCreatOrderScreen from './FlightCreatOrderScreen';
+import FlightCreatOrderScreen from './FlightCreatOrderScreen';
 // import FlightRtListScreen from './FlightRtListScreen';
 // import FlightRtRuleScreen from './FlightRtRuleScreen';
 import FlightEditPassengerScreen from './FlightEditPassengerScreen';
 // import FlightOrderSureScreen from './FlightOrderSureScreen';
-// import FlightOrderListScreen from './FlightOrderListScreen';
+import FlightOrderListScreen from './FlightOrderListScreen';
 import FlightOrderDetailScreen from './FlightOrderDetailScreen';
-// import FlightOrderRefunScreen from './FlightOrderRefunScreen';
-// import FlightChangeSearchScreen from './FlightChangeSearchScreen';
+import FlightOrderRefunScreen from './FlightOrderRefunScreen';
+import FlightChangeSearchScreen from './FlightChangeSearchScreen';
 // import FlightChangeScreen from './FlightChangeScreen';
 import FlightPaymentScreen from './FlightPaymentScreen';
 // import FlightMorePriceScreen from './FlightMorePriceScreen';
@@ -65,27 +65,27 @@ const flightConfig = {
     // FlightRtRule: {
     //     screen: FlightRtRuleScreen
     // },
-    // FlightOrderScreeb: {
-    //     screen: FlightCreatOrderScreen
-    // },
+    FlightOrderScreeb: {
+        screen: FlightCreatOrderScreen
+    },
     FlightEditPassenger: {
         screen: FlightEditPassengerScreen
     },
     // FlightOrderSure: {
     //     screen: FlightOrderSureScreen
     // },
-    // FlightOrderList: {
-    //     screen: FlightOrderListScreen
-    // },
+    FlightOrderList: {
+        screen: FlightOrderListScreen
+    },
     FlightOrderDetail: {
         screen: FlightOrderDetailScreen
     },
-    // FlightOrderRefund: {
-    //     screen: FlightOrderRefunScreen
-    // },
-    // FlightChangeSearch: {
-    //     screen: FlightChangeSearchScreen
-    // },
+    FlightOrderRefund: {
+        screen: FlightOrderRefunScreen
+    },
+    FlightChangeSearch: {
+        screen: FlightChangeSearchScreen
+    },
     // FlightChangeDetail: {
     //     screen: FlightChangeScreen
     // },

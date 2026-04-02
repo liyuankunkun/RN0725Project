@@ -18,7 +18,7 @@ export default class ApplicationMoreCityScreen extends SuperView {
 
     constructor(props) {
         super(props);
-        this.params = props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this._navigationHeaderView = {
             title: this.params.title,
             rightButton: ViewUtil.getRightButton("保存", this._toSaveCitys)

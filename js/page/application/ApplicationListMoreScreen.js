@@ -32,7 +32,7 @@ class ApplicationListMoreScreen extends SuperView {
         this._tabBarBottomView = {
             bottomInset: true
         }
-        this.params = props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this.state = {
             dataList: [],
             page: 1,

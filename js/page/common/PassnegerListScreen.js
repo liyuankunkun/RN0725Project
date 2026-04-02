@@ -115,7 +115,9 @@ class PassengerListScreen extends SuperView {
                 this.pop();
               }
             });
+            return;
         }else if (this.params.from === 'comp_traveller' || this.params.from === 'intlFlight') {//综合订单新增常旅客
+            console.log('新增常旅客======');
             this.push('IntlFlightEditPassenger', {
                 from: 'presonal',
                 title:'新增乘客',
@@ -126,8 +128,13 @@ class PassengerListScreen extends SuperView {
                 this.pop();
               }
             });
+            return;
         }
 
+        if (!ToIdnex) {
+            this.toastMsg('未识别的新增乘客入口');
+            return;
+        }
         this.push(ToIdnex, {
             customerInfo,
             title:'新增乘客',

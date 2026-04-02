@@ -12,21 +12,21 @@ import HotelIndexScreen from './HotelIndexScreen';
 // import HotelRuleScreen from './HotelRuleScreen';
 // import HotelAddPassenegrScreen from './HotelAddPassenegrScreen';
 // import HotelOrderSureScreen from './HotelOrderSureScreen';
-// import HotelGuaranteeScreen from './HotelGuaranteeScreen';
+import HotelGuaranteeScreen from './HotelGuaranteeScreen';
 // import HotelGuaranteeScreen2 from './HotelGuaranteeScreen2';
-// import HotelOrderListScreen from './HotelOrderListScreen';
+import HotelOrderListScreen from './HotelOrderListScreen';
 import HotelOrderDetailScreen from './HotelOrderDetailScreen';
 import HotelPaymentScreen from './HotelPaymentScreen';
-// import HotelEditPassengerScreen from './HotelEditPassengerScreen';
+import HotelEditPassengerScreen from './HotelEditPassengerScreen';
 // import HotelCompEditPassengerScreen from './HotelCompEditPassengerScreen';
 // import Hotel_comp_CreateOrderScreen from './Hotel_comp_CreateOrderScreen';
 // import HotelChoosePersonScreen from './HotelChoosePersonScreen';
 // import HotelSelectCardScreen from './HotelSelectCardScreen';
-// import HotelGuranteeMessageVertifyScreen from './HotelGuranteeMessageVertifyScreen';
+import HotelGuranteeMessageVertifyScreen from './HotelGuranteeMessageVertifyScreen';
 // import ChooseLivePersonScreen from './ChooseLivePersonScreen';
 // import TestScreen from './TestScreen';
 // import HotelAddPersonEditScreen from './HotelAddPersonEditScreen';
-// import CvvScreen from './CvvScreen';
+import CvvScreen from './CvvScreen';
 import HotelScreen from './HotelScreen';
 
 const hotelConfig = {
@@ -63,15 +63,15 @@ const hotelConfig = {
     // HotelAddPassenger: {
     //     screen: HotelAddPassenegrScreen
     // },
-    // HotelGuarantee: {
-    //     screen: HotelGuaranteeScreen
-    // },
+    HotelGuarantee: {
+        screen: HotelGuaranteeScreen
+    },
     // HotelGuarantee2: {
     //     screen: HotelGuaranteeScreen2
     // },
-    // HotelOrderListScreen: {
-    //     screen: HotelOrderListScreen
-    // },
+    HotelOrderListScreen: {
+        screen: HotelOrderListScreen
+    },
     HotelOrderDetailScreen: {
         screen: HotelOrderDetailScreen
     },
@@ -87,9 +87,9 @@ const hotelConfig = {
     // HotelRoomPicIDetail: {
     //     screen: HotelRoomPicIDetailView
     // },
-    // HotelEditPassengerScreen: {
-    //     screen: HotelEditPassengerScreen
-    // },
+    HotelEditPassengerScreen: {
+        screen: HotelEditPassengerScreen
+    },
     // HotelCompEditPassengerScreen: {
     //     screen: HotelCompEditPassengerScreen
     // },
@@ -102,9 +102,9 @@ const hotelConfig = {
     // HotelSelectCardScreen:{
     //     screen:HotelSelectCardScreen
     // },
-    // HotelGuranteeMessageVertify:{
-    //     screen:HotelGuranteeMessageVertifyScreen
-    // },
+    HotelGuranteeMessageVertify:{
+        screen:HotelGuranteeMessageVertifyScreen
+    },
     // ChooseLivePersonScreen:{
     //     screen: ChooseLivePersonScreen
     // },
@@ -114,9 +114,9 @@ const hotelConfig = {
     // HotelAddPersonEditScreen:{
     //     screen: HotelAddPersonEditScreen
     // },
-    // CvvScreen:{
-    //     screen: CvvScreen
-    // }
+    CvvScreen:{
+        screen: CvvScreen
+    }
 }
 
 

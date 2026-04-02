@@ -671,6 +671,7 @@ class HotelIndexScreen extends SuperView {
             {
                 toValue: -45,
                 duration: 300,   //动画时长300毫秒
+                useNativeDriver: false
             }
         ).start();
     }
@@ -681,6 +682,7 @@ class HotelIndexScreen extends SuperView {
             {
                 toValue: global.screenHeight,
                 duration: 300,   //动画时长300毫秒
+                useNativeDriver: false
             }).start();
     }
     //可选关键字UI

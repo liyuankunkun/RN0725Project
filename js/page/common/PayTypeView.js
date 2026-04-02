@@ -92,14 +92,16 @@ export default class PayTypeView extends React.Component {
         }, () => {
             Animated.timing(this.state.modelHeight, {
                 toValue: BOTTOM_HEIGHT,
-                duration: 200
+                duration: 200,
+                useNativeDriver: false
             }).start()
         })
     }
     dismiss = () => {
         Animated.timing(this.state.modelHeight, {
             toValue: 0,
-            duration: 200
+            duration: 200,
+            useNativeDriver: false
         }).start(() => {
             this.setState({
                 visible: false,
@@ -111,7 +113,8 @@ export default class PayTypeView extends React.Component {
     _detailMoadl = (type) => {
         Animated.timing(this.state.modelHeight, {
             toValue: 0,
-            duration: 200
+            duration: 200,
+            useNativeDriver: false
         }).start(() => {
             this.setState({
                 visible: false,

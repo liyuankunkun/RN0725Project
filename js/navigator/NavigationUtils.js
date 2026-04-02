@@ -15,7 +15,48 @@ export default class NavigationUtils {
             console.warn('NavigationUtils.push: navigation is null');
             return;
         }
-        navigation.navigate(routeName, params);
+        if (!routeName) {
+            console.warn('NavigationUtils.push: routeName is empty');
+            return;
+        }
+        let nav = navigation;
+        for (let i = 0; i < 4 && nav; i++) {
+            const state = nav.getState && nav.getState();
+            const hasRoute =
+                (state && Array.isArray(state.routeNames) && state.routeNames.includes(routeName)) ||
+                (state && Array.isArray(state.routes) && state.routes.some(r => r && r.name === routeName));
+            if (hasRoute) {
+                if (typeof nav.navigate === 'function') {
+                    nav.navigate(routeName, params);
+                    return;
+                }
+                if (typeof nav.dispatch === 'function') {
+                    nav.dispatch(
+                        CommonActions.navigate({
+                            name: routeName,
+                            params: params,
+                        })
+                    );
+                    return;
+                }
+                break;
+            }
+            nav = nav.getParent && nav.getParent();
+        }
+        if (typeof navigation.navigate === 'function') {
+            navigation.navigate(routeName, params);
+            return;
+        }
+        if (typeof navigation.dispatch === 'function') {
+            navigation.dispatch(
+                CommonActions.navigate({
+                    name: routeName,
+                    params: params,
+                })
+            );
+            return;
+        }
+        console.warn('NavigationUtils.push: navigation has no navigate/dispatch');
     }
 
     /**

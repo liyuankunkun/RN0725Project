@@ -54,7 +54,8 @@ export default class SectionHeader extends Component {
             Animated.timing(this.state.rotateValue, {
                 toValue: 180,
                 duration: 400,
-                easing: Easing.linear
+                easing: Easing.linear,
+                useNativeDriver: true
             }).start();// 开始spring动画
 
         } else {
@@ -62,7 +63,8 @@ export default class SectionHeader extends Component {
             Animated.timing(this.state.rotateValue, {
                 toValue: 0,
                 duration: 400,
-                easing: Easing.linear
+                easing: Easing.linear,
+                useNativeDriver: true
             }).start();// 开始spring动画
         }
     };

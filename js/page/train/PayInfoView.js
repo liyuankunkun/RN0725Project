@@ -43,7 +43,8 @@ export default class PayInfoView extends React.Component {
             Animated.parallel([
                 Animated.timing(this.state.moadlHeight, {
                     toValue: screenHeight * 0.65,
-                    duration: 200
+                    duration: 200,
+                    useNativeDriver: false
                 }),
             ]).start();
         })
@@ -51,7 +52,8 @@ export default class PayInfoView extends React.Component {
     _dismiss = () => {
         Animated.timing(this.state.moadlHeight, {
             toValue: 0,
-            duration: 200
+            duration: 200,
+            useNativeDriver: false
         }).start(() => {
             this.setState({
                 visible: false,

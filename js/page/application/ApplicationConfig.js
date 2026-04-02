@@ -1,5 +1,5 @@
 
-// import ApplicationSelectScreen from './ApplicationSelectScreen';
+import ApplicationSelectScreen from './ApplicationSelectScreen';
 // import ApplicationSelectScreen2 from './ApplicationSelectScreen2';
 import ApplicationListScreen from './ApplicationListScreen';
 import ApplicationOrderDetailScreen from './ApplicationOrderDetailScreen';
@@ -12,9 +12,9 @@ import ApplicationChooseTraveler from './ApplicationChooseTraveler';
 import ApplicationChangeOrderScreen from './ApplicationChangeOrderScreen';
 
 const applicationConfig = {
-    // ApplicationSelect: {
-    //     screen: ApplicationSelectScreen
-    // },
+    ApplicationSelect: {
+        screen: ApplicationSelectScreen
+    },
     // ApplicationSelect2: {
     //     screen: ApplicationSelectScreen2
     // },

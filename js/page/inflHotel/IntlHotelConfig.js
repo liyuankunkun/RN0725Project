@@ -6,7 +6,7 @@
 // import InterHotelListScreen from './InterHotelListScreen';
 // import InterHotelEditPassengerScreen from './InterHotelEditPassengerScreen';
 // import InterHotelPaymentScreen from './InterHotelPaymentScreen';
-// import InterHotelOrderListScreen from './InterHotelOrderListScreen';
+import InterHotelOrderListScreen from './InterHotelOrderListScreen';
 import InterHotelOrderDetailScreen from './InterHotelOrderDetailScreen';
 // import IntelHotel_comp_CreateOrderScreen from './IntelHotel_comp_CreateOrderScreen';
 // import IntelHotelRuleScreen from './IntelHotelRuleScreen';
@@ -37,9 +37,9 @@ let config = {
     // InterHotelPayment: {
     //     screen: InterHotelPaymentScreen
     // },
-    // InterHotelOrderListScreen: {
-    //     screen: InterHotelOrderListScreen
-    // },
+    InterHotelOrderListScreen: {
+        screen: InterHotelOrderListScreen
+    },
     InterHotelOrderDetail: {
         screen: InterHotelOrderDetailScreen
     },

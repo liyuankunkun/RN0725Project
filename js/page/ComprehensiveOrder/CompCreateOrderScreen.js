@@ -26,7 +26,7 @@ class CompCreateOrderScreen extends SuperView {
 
     constructor(props) {
         super(props);
-        this.params = props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this.customerInfo = this.params.customerInfo || {};
         this._navigationHeaderView = {
             title:'新建综合订单',

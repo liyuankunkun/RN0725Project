@@ -1015,7 +1015,7 @@ class CompDetailScreen extends SuperView {
                                         </View>
                                         <CustomText text={item.approvalPerson&&item.approvalPerson.Name} numberOfLines={2} style={{flex: 7, height:46, paddingTop:10,width:10}}/>
                                     </TouchableOpacity>
-                                    <Ionicons name={'ios-arrow-forward'} size={20} color={'lightgray'} style={{height:40,paddingTop:9}} />
+                                    <Ionicons name={'chevron-forward'} size={20} color={'lightgray'} style={{height:40,paddingTop:9}} />
                                 </View>
                             )
                         })
@@ -1902,7 +1902,7 @@ class CompDetailScreen extends SuperView {
                                         :
                                         <TextViewTitle title={'上传附件'} style={{marginLeft:-5,paddingVertical:10}} imgIcon={require('../../res/Uimage/shu.png')}/>
                                     }
-                                    {/* <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} style={{ marginLeft: 5 }} /> */}
+                                    {/* <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} style={{ marginLeft: 5 }} /> */}
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between" }}>
                                         <TouchableOpacity style={[{ borderColor: Theme.theme }, styles.borderAll]} 
                                             onPress={()=>{

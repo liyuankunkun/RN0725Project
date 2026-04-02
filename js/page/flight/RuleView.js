@@ -36,7 +36,8 @@ export default class RuleView extends React.Component {
         }, () => {
             Animated.timing(this.state.modelHeight, {
                 toValue: screenHeight * 0.8,
-                duration: 200
+                duration: 200,
+                useNativeDriver: false
             }).start();
         })
     }
@@ -44,7 +45,8 @@ export default class RuleView extends React.Component {
 
         Animated.timing(this.state.modelHeight, {
             toValue: 0,
-            duration: 200
+            duration: 200,
+            useNativeDriver: false
         }).start(() => {
             this.setState({
                 model: {},

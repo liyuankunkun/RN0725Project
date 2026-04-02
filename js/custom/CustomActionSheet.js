@@ -35,11 +35,13 @@ export default class CustomActioSheet extends React.Component {
             Animated.parallel([
                 Animated.timing(this.state.modelOpacity, {
                     toValue: 0.6,
-                    duration: 300
+                    duration: 300,
+                    useNativeDriver: true
                 }),
                 Animated.timing(this.state.modelHeight, {
                     toValue: this._getHeight(),
-                    duration: 300
+                    duration: 300,
+                    useNativeDriver: false
                 })
             ]).start();
         })
@@ -49,11 +51,13 @@ export default class CustomActioSheet extends React.Component {
         Animated.parallel([
             Animated.timing(this.state.modelOpacity, {
                 toValue: 0,
-                duration: 300
+                duration: 300,
+                useNativeDriver: true
             }),
             Animated.timing(this.state.modelHeight, {
                 toValue: 0,
-                duration: 300
+                duration: 300,
+                useNativeDriver: false
             })
         ]).start(() => {
             this.setState({
@@ -68,11 +72,13 @@ export default class CustomActioSheet extends React.Component {
         Animated.parallel([
             Animated.timing(this.state.modelOpacity, {
                 toValue: 0,
-                duration: 300
+                duration: 300,
+                useNativeDriver: true
             }),
             Animated.timing(this.state.modelHeight, {
                 toValue: 0,
-                duration: 300
+                duration: 300,
+                useNativeDriver: false
             })
         ]).start(() => {
             this.setState({

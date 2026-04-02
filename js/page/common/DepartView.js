@@ -174,7 +174,7 @@ class DepartView extends React.Component {
                             <CustomText text={'授权人'} style={{ flex: 4,fontSize:14 }} numberOfLines={1}/>
                             <View style={styles.rowRight}>
                                 <CustomText style={{ flex: 1,fontSize:14 }} text={ApproveOrigin.ApproverName} onPress={this._toSelectApprover} />
-                                <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} />
+                                <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} />
                             </View>
                         </View>
                         : null

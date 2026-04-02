@@ -38,7 +38,7 @@ class SearchScreen extends SuperView {
     constructor(props) {
         super(props);
         let options = IntlFlightEnum.cabins.map(item => item.name);
-        this.params = props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this._navigationHeaderView = {
             title: '港澳台及国际机票',
             // rightButton: props.feeType === 1 ? ViewUtil.getRightButton('差旅标准', this._getTravelRule) : null

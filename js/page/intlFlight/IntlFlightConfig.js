@@ -4,16 +4,16 @@ import SearchScreen from './SearchScreen';
 // import IntlFlightMorePriceScreen from './IntlFlightMorePriceScreen';
 // import InflCreateOrderScreen from './InflCreateOrderScreen';
 // import IntlFlightOrderSureScreen from './IntlFlightOrderSureScreen';
-// import IntlFlightOrderListScreen from './IntlFlightOrderListScreen';
+import IntlFlightOrderListScreen from './IntlFlightOrderListScreen';
 import IntlFlightOrderDetailScreen from './IntlFlightOrderDetailScreen';
-// import InflFlightOrderRefundScreen from './InflFlightOrderRefundScreen';
-// import InflFlightOrderReissueScreen from './InflFlightOrderReissueScreen';
+import InflFlightOrderRefundScreen from './InflFlightOrderRefundScreen';
+import InflFlightOrderReissueScreen from './InflFlightOrderReissueScreen';
 import IntlFlightPaymentScreen from './IntlFlightPaymentScreen';
 // import IntlFlightListScreen from './IntlFlightListScreen';
 // import IntlFlightMoreScreen from './IntlFlightMoreScreen';
 // import IntlFlightRtListScreen from './IntlFlightRtListScreen';
 // import InflFlight_compCreateOrderScreen from './InflFlight_compCreateOrderScreen';
-// import IntlEditPassengerScreen from '../common/IntlEditPassengerScreen';//国际的 普通订单
+import IntlEditPassengerScreen from '../common/IntlEditPassengerScreen';//国际的 普通订单
 // import IntlFlightEditScreen from './IntlFlightEditScreen'; //国际的 普通订单飞机编辑
 // import IntlCompEditPassengerScreen from './Intl_compEditPassengerScreen'; //国际的 创建综合订单编辑
 // import Intl_compFlightEditScreen from './Intl_compFlightEditScreen';//国际 综合订单编辑
@@ -58,42 +58,42 @@ const intlConfig = {
   //   IntlFlightCreateOrder: {
   //       screen: InflCreateOrderScreen
   //   },
-  //   /**
-  //  * 新增／编辑乘客
-  //  */
-  //   IntlFlightEditPassenger: {
-  //       screen: IntlEditPassengerScreen
-  //   },
+    /**
+   * 新增／编辑乘客
+   */
+    IntlFlightEditPassenger: {
+        screen: IntlEditPassengerScreen
+    },
   //   IntlFlightOrderSure: {
   //       screen: IntlFlightOrderSureScreen
   //   },
   //   IntlCompEditPassengerScreen: {
   //       screen: IntlCompEditPassengerScreen
   //   },
-  //   /**
-  //   * 订单列表
-  //   */
-  //   IntlFlightOrderList: {
-  //       screen: IntlFlightOrderListScreen
-  //   },
+    /**
+    * 订单列表
+    */
+    IntlFlightOrderList: {
+        screen: IntlFlightOrderListScreen
+    },
     /**
    * 订单详情
    */
     IntlFlightOrderDetail: {
         screen: IntlFlightOrderDetailScreen
     },
-  //   /**
-  //  * 退票申请
-  //  */
-  //   IntlFlightOrderRefund: {
-  //       screen: InflFlightOrderRefundScreen
-  //   },
-  //   /**
-  //   * 改签申请
-  //   */
-  //   IntlFlightOrderReissue: {
-  //       screen: InflFlightOrderReissueScreen
-  //   },
+    /**
+   * 退票申请
+   */
+    IntlFlightOrderRefund: {
+        screen: InflFlightOrderRefundScreen
+    },
+    /**
+    * 改签申请
+    */
+    IntlFlightOrderReissue: {
+        screen: InflFlightOrderReissueScreen
+    },
     /**
      * 订单支付页
      */

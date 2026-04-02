@@ -22,6 +22,10 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>用于拍照/人脸核验</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>用于拍摄视频时采集声音</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>用于人脸登录app</string>
 	<key>LSRequiresIPhoneOS</key>

@@ -5,7 +5,7 @@ import PassnegerListScreen from './PassnegerListScreen';
 import ProjectScreen from './ProjectScreen';
 import DicListScreen from './DicListScreen';
 // import ApproverListScreen from './ApproverListScreen';
-// import NationCityScreen from './NationCityScreen';
+import NationCityScreen from './NationCityScreen';
 // import PdfDisplayScreen from './PdfDisplayScreen';
 // import BindMobileScreen from './BindMobileScreen';
 // import NoticeCenterScreen  from '../home/NoticeCenterScreen';
@@ -47,9 +47,9 @@ const common = {
     // ApproverList: {
     //     screen: ApproverListScreen
     // },
-    // NationalCity: {
-    //     screen: NationCityScreen
-    // },
+    NationalCity: {
+        screen: NationCityScreen
+    },
     // PdfDisplay: {
     //     screen: PdfDisplayScreen
     // },

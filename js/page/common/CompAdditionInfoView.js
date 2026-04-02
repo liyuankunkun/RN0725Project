@@ -209,7 +209,7 @@ class CompAdditionInfoView extends React.Component {
                                     //             :
                                     //             <View style={styles.rowRight}>
                                     //                 <CustomText text={itemIndex ? itemIndex.ItemName : obj.Remark} style={{ color: itemIndex ? '#333' : 'gray', flex: 1 }} onPress={this._toSelectDicList.bind(this, itemIndex)} />
-                                    //                 <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} />
+                                    //                 <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} />
                                     //             </View>
                                     //     }
                                     // </View>

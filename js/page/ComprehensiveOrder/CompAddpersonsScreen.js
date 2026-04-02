@@ -20,7 +20,7 @@ import Util from '../../util/Util'
 export default class CompAddpersonsScreen extends SuperView {
     constructor(props) {
         super(props);
-        this.params = props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this.passengers = Util.Encryption.clone(this.params.passengers);
         this._navigationHeaderView = {
             title:'选择',

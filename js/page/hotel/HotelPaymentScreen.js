@@ -27,7 +27,7 @@ export default class HotelPaymentScreen extends SuperView {
 
     constructor(props) {
         super(props);
-        this.params = props.navigation.state.params || {};
+        this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this._navigationHeaderView = {
             title: '信息核实'
         }

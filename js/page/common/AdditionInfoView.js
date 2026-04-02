@@ -228,7 +228,7 @@ class AdditionInfoView extends React.Component {
                                 //                 <CustomText text={itemIndex ? (Util.Parse.isChinese()?itemIndex.ItemName:itemIndex.ItemEnName) :(Util.Parse.isChinese()? obj.Remark: obj.EnRemark)} 
                                 //                             style={{ color: itemIndex ? Theme.commonFontColor: '#ccc', flex: 1, paddingTop:10,fontSize:14}} 
                                 //                             onPress={this._toSelectDicList.bind(this, obj)} />
-                                //                 <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} style={{height:40,paddingTop:9}} />
+                                //                 <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} style={{height:40,paddingTop:9}} />
                                 //             </View>
                                 //     }
                                 // </View>
@@ -270,7 +270,7 @@ class AdditionInfoView extends React.Component {
                                 //             <View style={{ justifyContent:'center' ,flexDirection:'row',borderColor:obj.IsRequire&& !(itemIndex&&itemIndex.ItemName)?Theme.redColor:'#fff',borderBottomWidth:1}}>
                                 //                 <CustomText text={itemIndex ? itemIndex.ItemName : obj.Remark} style={{ color: itemIndex ? Theme.commonFontColor: '#ccc', flex: 1, paddingTop:10,fontSize:14}} 
                                 //                 onPress={this._toSelectDicList.bind(this, itemIndex)} />
-                                //                 <Ionicons name={'ios-arrow-forward'} size={20} color={'lightgray'} />
+                                //                 <Ionicons name={'chevron-forward'} size={20} color={'lightgray'} />
                                 //             </View>
                                 //     }
                                 // </View>

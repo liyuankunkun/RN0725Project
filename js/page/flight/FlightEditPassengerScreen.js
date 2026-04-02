@@ -879,7 +879,7 @@ class FlightEditPassengerScreen extends SuperView {
                             //                  <CustomText text={itemIndex ? (Util.Parse.isChinese()?itemIndex.ItemInput:itemIndex.ItemEnName) : remark} style={{ color: itemIndex ? null : 'gray', flex: 1 }} 
                             //                  onPress={()=>{this._toSelectDicList(obj)}} 
                             //                  />
-                            //                  <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} />
+                            //                  <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} />
                             //              </View>
                             //      }
                             // </View>
