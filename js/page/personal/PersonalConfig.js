@@ -1,13 +1,13 @@
 // import SetUpScreen from './SetUpScreen';
-// import ModifyPassword from './ModifyPassword';
+import ModifyPassword from './ModifyPassword';
 // import LanguageSelect from './LanguageSelect';
-// import UnUserOrderScreen from './UnUserOrderScreen';
+import UnUserOrderScreen from './UnUserOrderScreen';
 import NoticeListScreen from './NoticeListScreen';
 import NoticeDetailScreen from './NoticeDetailScreen';
-// import TravellerListScreen from './TravellerListScreen';
+import TravellerListScreen from './TravellerListScreen';
 import PersonalInfoScreen from './PersonalInfoScreen';
 // import FeedBackScreen from './FeedBackScreen';
-// import AboutUsScreen from './AboutUsScreen';
+import AboutUsScreen from './AboutUsScreen';
 // import managerCenterScreen from './managerCenterScreen'
 // import FlightManagerOrderScreen from './FlightManagerOrderScreen'
 // import IntlFlightManagerOrderScreen from './IntlFlightManagerOrderScreen'
@@ -46,48 +46,48 @@ import HotelCardScreen from './HotelCardScreen';
 // import AddNewHotelCardScreen from './AddNewHotelCardScreen';
 // import FlightCompanyScreen from './FlightCompanyScreen';
 // import HotelCompanyScreen from './HotelCompanyScreen';
-// import DownInvoiceListScreen from './DownInvoiceListScreen';
-// import CreditCardScreen from './CreditCardScreen';
-// import AddCreditCardScreen from './AddCreditCardScreen';
-// import SelectCreditCardScreen from './SelectCreditCardScreen';
+import DownInvoiceListScreen from './DownInvoiceListScreen';
+import CreditCardScreen from './CreditCardScreen';
+import AddCreditCardScreen from './AddCreditCardScreen';
+import SelectCreditCardScreen from './SelectCreditCardScreen';
 import CameryScreen from './CameryScreen';
-// import AddShakeHandsScreen from './AddShakeHandsScreen';
+import AddShakeHandsScreen from './AddShakeHandsScreen';
 import SearchBookerScreen from './SearchBookerScreen';
-// import HandersListScreen from './HandersListScreen';
-// import AddTravelerScreen from './AddTravelerScreen';
-// import EditHandPassengerScreen from './EditHandPassengerScreen';
+import HandersListScreen from './HandersListScreen';
+import AddTravelerScreen from './AddTravelerScreen';
+import EditHandPassengerScreen from './EditHandPassengerScreen';
 // import ChunqiuLoginScreen from './ChunqiuLoginScreen';
 const PersonalConfig = {
     // Setup: {
     //     screen: SetUpScreen
     // },
-    // ModifyPassword: {
-    //     screen: ModifyPassword
-    // },
+    ModifyPassword: {
+        screen: ModifyPassword
+    },
     // Language: {
     //     screen: LanguageSelect
     // },
-    // UnUserOrder: {
-    //     screen: UnUserOrderScreen
-    // },
+    UnUserOrder: {
+        screen: UnUserOrderScreen
+    },
     NoticeList: {
         screen: NoticeListScreen
     },
     NoticeDetail: {
         screen: NoticeDetailScreen
     },
-    // TravellerList: {
-    //     screen: TravellerListScreen
-    // },
+    TravellerList: {
+        screen: TravellerListScreen
+    },
     PersonalInfo: {
         screen: PersonalInfoScreen
     },
     // FeedBack: {
     //     screen: FeedBackScreen
     // },
-    // AboutUs: {
-    //     screen: AboutUsScreen
-    // },
+    AboutUs: {
+        screen: AboutUsScreen
+    },
     // managerCenterScreen: {
     //     screen: managerCenterScreen
     // },
@@ -202,36 +202,36 @@ const PersonalConfig = {
     // HotelCompanyScreen:{
     //     screen: HotelCompanyScreen
     // },
-    // DownInvoiceListScreen:{
-    //     screen: DownInvoiceListScreen
-    // },
-    // CreditCardScreen:{
-    //     screen: CreditCardScreen
-    // },
-    // AddCreditCardScreen:{
-    //     screen: AddCreditCardScreen
-    // },
-    // SelectCreditCardScreen:{
-    //     screen: SelectCreditCardScreen
-    // },
+    DownInvoiceListScreen:{
+        screen: DownInvoiceListScreen
+    },
+    CreditCardScreen:{
+        screen: CreditCardScreen
+    },
+    AddCreditCardScreen:{
+        screen: AddCreditCardScreen
+    },
+    SelectCreditCardScreen:{
+        screen: SelectCreditCardScreen
+    },
     CameryScreen:{
         screen: CameryScreen
     },
-    // AddShakeHandsScreen:{
-    //     screen: AddShakeHandsScreen
-    // },
+    AddShakeHandsScreen:{
+        screen: AddShakeHandsScreen
+    },
     SearchBookerScreen:{
         screen: SearchBookerScreen
     },
-    // HandersListScreen:{
-    //     screen: HandersListScreen
-    // },
-    // AddTravelerScreen:{
-    //     screen: AddTravelerScreen
-    // },
-    // EditHandPassengerScreen:{
-    //     screen: EditHandPassengerScreen
-    // },
+    HandersListScreen:{
+        screen: HandersListScreen
+    },
+    AddTravelerScreen:{
+        screen: AddTravelerScreen
+    },
+    EditHandPassengerScreen:{
+        screen: EditHandPassengerScreen
+    },
     // ChunqiuLoginScreen:{
     //     screen: ChunqiuLoginScreen
     // }

@@ -1,8 +1,8 @@
 import SearchScreen from './SearchScreen';
 import TrainCityScreen from './TrainCityScreen';
 // import TrainListScreen from './TrainListScreen';
-// import TrainFilterScreen from './TrainFilterScreen';
-// import TrainTicketDetailScreen from './TrainTicketDetailScreen';
+import TrainFilterScreen from './TrainFilterScreen';
+import TrainTicketDetailScreen from './TrainTicketDetailScreen';
 // import TrainStopStationScreen from './TrainStopStationScreen';
 // import TrainRuleScreen from './TrainRuleScreen';
 // import TrainCreateOrderScreen from './TrainCreateOrderScreen';
@@ -42,12 +42,12 @@ let config = {
     TrainChangeList:{
         screen:TrainChangeListScreen
     },
-    // TrainFilterScreen: {
-    //     screen: TrainFilterScreen
-    // },
-    // TrainTicketScreen: {
-    //     screen: TrainTicketDetailScreen
-    // },
+    TrainFilterScreen: {
+        screen: TrainFilterScreen
+    },
+    TrainTicketScreen: {
+        screen: TrainTicketDetailScreen
+    },
     // TrainChangeTicket:{
     //     screen: TrainChangeTicketScreen
     // },

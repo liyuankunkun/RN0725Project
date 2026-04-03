@@ -9,6 +9,9 @@ const LogConfig = {
   login: {
     screen: LoginScreen,
   },
+  Init: {
+    screen: LoginScreen,
+  },
   Forget1: {
     screen: ForgetPwdScreen1,
   },

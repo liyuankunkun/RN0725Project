@@ -128,4 +128,18 @@ export default class UserInfoDao {
     //     })
 
     // }
+
+    static removeAllInfo() {
+        const tasks = [
+            StorageUtil.removeKeyId(Key.TOKEN).catch(() => null),
+            StorageUtil.removeKey(Key.UserInfo).catch(() => null),
+            StorageUtil.removeKey(Key.CustomerInfo).catch(() => null),
+            StorageUtil.removeKey(Key.CustomerInfoSetting).catch(() => null),
+            StorageUtil.removeKey(Key.UserLogo).catch(() => null),
+            StorageUtil.removeKey(Key.Publickeyid).catch(() => null),
+        ];
+        return Promise.all(tasks).then(() => {
+            StorageUtil.clearMap();
+        });
+    }
 }

@@ -11,12 +11,12 @@ import NationCityScreen from './NationCityScreen';
 // import NoticeCenterScreen  from '../home/NoticeCenterScreen';
 import NoticeListScreen from '../home/NoticeListScreen';
 // import GuranteeCardScreen from './GuranteeCardScreen';
-// import CancalAccountScreen from '../home/CancalAccountScreen';
+import CancalAccountScreen from '../home/CancalAccountScreen';
 // import TravelBookScreen from '../home/TravelBookScreen';
 // import TravelBookHotelScreen from '../home/TravelBookHotelScreen'
 // import ChooseSinglePersonList from './ChooseSinglePersonList';
 // import CompEditPassengerScreen from '../ComprehensiveOrder/CompEditPassengerScreen';
-// import TaverlerCreditCardScreen from '../personal/TaverlerCreditCardScreen';
+import TaverlerCreditCardScreen from '../personal/TaverlerCreditCardScreen';
 import NewNoticeCenterScreen from '../home/NewNoticeCenterScreen';
 import NoticeDetailScreen from '../home/NoticeDetailScreen';
 const common = {
@@ -65,9 +65,9 @@ const common = {
     NoticeCenterDetail:{
         screen:NoticeListScreen
     },
-    // CancalAccount:{
-    //     screen:CancalAccountScreen
-    // },
+    CancalAccount:{
+        screen:CancalAccountScreen
+    },
     // TravelBookScreen:{
     //     screen: TravelBookScreen
     // },
@@ -77,9 +77,9 @@ const common = {
     // CompEditPassengerScreen:{
     //     screen: CompEditPassengerScreen
     // },
-    // TaverlerCreditCardScreen:{
-    //     screen: TaverlerCreditCardScreen
-    // },
+    TaverlerCreditCardScreen:{
+        screen: TaverlerCreditCardScreen
+    },
     MessageNoticeDetail:{
         screen: NoticeDetailScreen
     }

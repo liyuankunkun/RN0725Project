@@ -487,7 +487,7 @@ export default class HotelGuranteeScreen extends SuperView {
                            </View>
                            <View style={styles.right}>
                                <CustomText text={''} style={{ flex: 1 }} />
-                               <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} />
+                               <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} />
                            </View>
                        </TouchableOpacity>
                     }
@@ -503,7 +503,7 @@ export default class HotelGuranteeScreen extends SuperView {
 
                         <View style={styles.right}>
                             <CustomText text={cardName && cardName.Name} style={{ flex: 1 }} onPress={this._selectCard} />
-                            <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} />
+                            <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} />
                         </View>
                     </View>
                     }
@@ -584,7 +584,7 @@ export default class HotelGuranteeScreen extends SuperView {
                         </View>
                         <View style={styles.right}>
                             <CustomText text={Type} style={{ flex: 1 }} onPress={this._selectType} />
-                            <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} />
+                            <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} />
                         </View>
                     </View>
                     }

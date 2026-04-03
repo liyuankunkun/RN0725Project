@@ -255,7 +255,7 @@ export default class TrainRefundScreen extends SuperView {
                         <TouchableHighlight underlayColor='transparent' onPress={this._selectReason}>
                             <View style={{ backgroundColor: "white", alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', padding: 10 }}>
                                 <CustomText text={reasonDesc ? reasonDesc : '请选择退票原因'} />
-                                <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} />
+                                <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} />
                             </View>
                         </TouchableHighlight>
                     </View>

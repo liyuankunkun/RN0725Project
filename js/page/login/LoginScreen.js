@@ -342,16 +342,16 @@ class LoginScreen extends SuperView {
               StorageUtil.saveKey(Key.LoginUserName, userName);
               StorageUtil.saveKeyId(FCM_SHOW_ADLIST, 'on');
               // this.push('Main');
-              StorageUtil.loadKey(Key.Publickeyid).then(result => {//下次不提醒
+              StorageUtil.loadKey(Key.Publickeyid).then(result => {
                 if (result) {
                   this.push('Main');
+                  return;
                 }
-              }).catch(err => {
                 StorageUtil.loadKey(Key.NoAgain).then(result1 => {
                   if (result1) {
                     this.push('Main');
+                    return;
                   }
-                }).catch(err => {
                   if (fingerId || useFaceId) {
                     let strAlert = fingerId ? '你可以开启指纹登录，后续登录更便捷' : '你可以开启人脸识别登录，后续登录更便捷'
                     this.showAlertView(strAlert, () => {
@@ -363,19 +363,24 @@ class LoginScreen extends SuperView {
                         this.dismissAlertView();
                       })
                     }, null, () => {
-                      StorageUtil.loadKey(Key.NoAgain).then(result1 => {
-                        if (result1) {
+                      StorageUtil.loadKey(Key.NoAgain).then(result2 => {
+                        if (result2) {
                           StorageUtil.removeKey(Key.NoAgain);
+                        } else {
+                          StorageUtil.saveKey(Key.NoAgain, 'NoAgain');
                         }
-                      }).catch(err => {
+                      }).catch(() => {
                         StorageUtil.saveKey(Key.NoAgain, 'NoAgain');
                       })
-                    }
-                    )
+                    })
                   } else {
                     this.push('Main');
                   }
+                }).catch(() => {
+                  this.push('Main');
                 })
+              }).catch(() => {
+                this.push('Main');
               })
             }
           }).catch(error => {
@@ -1132,4 +1137,3 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   }
 });
-

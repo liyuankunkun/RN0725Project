@@ -435,7 +435,7 @@ class InflFlightOrderReissueScreen extends SuperView {
                                     <CustomText text='打开相册或相机' style={{color: Theme.theme }} />
                                 </TouchableOpacity>}
                         </View>
-                        {/* <Ionicons name={'ios-arrow-forward'} size={22} color={'lightgray'} style={{ marginLeft: 5 }} /> */}
+                        {/* <Ionicons name={'chevron-forward'} size={22} color={'lightgray'} style={{ marginLeft: 5 }} /> */}
                 </View>
                 <View style={{ backgroundColor: 'white',justifyContent:'space-between',marginTop:10}}>
                         <CustomText text={'单个文件最大5MB，数量最多5个，格式为:'} style={{fontSize:11, color:'red'}} ></CustomText>
