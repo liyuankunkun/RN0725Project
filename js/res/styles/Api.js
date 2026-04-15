@@ -41,6 +41,7 @@ export default {
     CurrentUserTravellerEdit: '/api/CurrentUserTravellerEdit',
     CurrentUserTravellerAdd: '/api/CurrentUserTravellerAdd',
     CurrentUserEmployeeEdit: '/api/CurrentUserEmployeeEdit',
+    CurrentUserEditAuthorizedApprove: '/api/CurrentUserEditAuthorizedApprove',
     CreateWorkOrder: '/api/CreateWorkOrder',
     CustomerEmployeeLeaderInfo: '/api/CustomerEmployeeLeaderInfo',
     TravelReportSummyInfo: '/api/TravelReportSummyInfo',

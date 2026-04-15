@@ -269,6 +269,9 @@ export default class CommonService {
     static CurrentUserEmployeeEdit = (model) => {
         return FetchHelper.post(baseUrl + api.CurrentUserEmployeeEdit, model);
     }
+    static CurrentUserEditAuthorizedApprove = (model) => {
+        return FetchHelper.post(baseUrl + api.CurrentUserEditAuthorizedApprove, model);
+    }
     //问题反馈功能
     static GetWorkOrder = (model) => {
         return FetchHelper.upload(baseUrl + api.CreateWorkOrder, model);

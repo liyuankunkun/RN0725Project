@@ -621,7 +621,8 @@ class FlightListScreen extends SuperView {
     _loadMorePrice = (section) => {
         const { isChange, ArrivalCityName,ArrivalCityCode,DepartureCityCode, arrivalCityData, DepartureCityName, goCityData, DepartureDateTime, goDate, arrivalDate } = this.params;
         const { TermsAgreement,user_info,customer_info,selectCabin,isDirect,isShare } = this.state;
-        const { compReferenceEmployee } = this.props;
+        const { compReferenceEmployee, comp_userInfo } = this.props;
+        let travellerCount = comp_userInfo.employees.length + comp_userInfo.travellers.length;
         let obj = section.lowPrice[section.lowPrice.length - 1];
         obj.fltInfo.cabinClassJson = obj.cabinClassInfo;
         let model = {
@@ -649,7 +650,8 @@ class FlightListScreen extends SuperView {
             SharedAirline: obj.fltInfo.codeShareLine,
             ResBookDesigCode:this._getCarbinCode(selectCabin)==="W"?"Y-W":this._getCarbinCode(selectCabin),
             ReferenceEmployeeId:this.props.comp_userInfo&&this.props.comp_userInfo.ReferenceEmployeeId?this.props.comp_userInfo.ReferenceEmployeeId:0,
-            ReferencePassengerId:this.props.comp_userInfo&&this.props.comp_userInfo.referencPassengerId
+            ReferencePassengerId:this.props.comp_userInfo&&this.props.comp_userInfo.referencPassengerId,
+            TravellerCount: travellerCount,
         }
         if(user_info?.Id === compReferenceEmployee?.Id){
             model.RulesTravelId =user_info.RulesTravelId;

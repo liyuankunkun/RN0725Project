@@ -27,6 +27,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 class HotelEditPassengerScreen extends SuperView {
     constructor(props) {
         super(props);
+        this._enNameToastTs = 0;
         this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this.passenger = Util.Encryption.clone(this.params.passenger || { SexDesc: '男', Sex: 1 ,CertificateType:'身份证'});
         this._navigationHeaderView = {
@@ -112,9 +113,23 @@ class HotelEditPassengerScreen extends SuperView {
             this.toastMsg('英文姓不能为空');
             return;
         }
+        if(passenger.Surname || passenger.LastName){
+            let EnglishName = passenger.LastName || passenger.Surname
+            if(Util.RegEx.isEnName(EnglishName)){
+                this.toastMsg('英文姓只能包含字母');
+                return;
+            }
+        }
         if ((VendorCodeTVP ||(isShowName && !select) || (!isShowName && !select)) && !passenger.FirstName && !passenger.GivenName ) {
             this.toastMsg('英文名不能为空');
             return;
+        }
+        if(passenger.GivenName || passenger.FirstName){
+            let EnglishName = passenger.FirstName || passenger.GivenName
+            if(Util.RegEx.isEnName(EnglishName)){
+                this.toastMsg('英文名只能包含字母');
+                return;
+            }
         }
         if((isShowName && !select) || (!isShowName && !select)){
             if(passenger.FirstName && passenger.LastName){
@@ -413,13 +428,23 @@ class HotelEditPassengerScreen extends SuperView {
                     VendorCodeTVP?
                     <Bt_inputView dicKey={'英文姓'}
                                   required={true} 
-                                  bt_text={passenger.LastName|| passenger.Surname} 
+                                  bt_text={
+                                    /[^a-zA-Z'\s]/.test(passenger.LastName|| passenger.Surname || '') ? '' : (passenger.LastName|| passenger.Surname || '')
+                                  } 
                                   _placeholder={'姓氏'} 
                                   warm_text={'需与证件一致'} 
                                   _callBack={(text)=>{
-                                        passenger.LastName = text;
-                                        passenger.Surname = text;
-                                        this.setState({});
+                                        if (!text || !Util.RegEx.isEnName(text)) {
+                                            passenger.LastName = text;
+                                            passenger.Surname = text;
+                                            this.setState({});
+                                            return;
+                                        }
+                                        const now = Date.now();
+                                        if (now - this._enNameToastTs > 800) {
+                                            this._enNameToastTs = now;
+                                            this.toastMsg('英文姓只能输入字母');
+                                        }
                                 }}
                     />:null
                 }
@@ -427,13 +452,23 @@ class HotelEditPassengerScreen extends SuperView {
                     VendorCodeTVP?
                     <Bt_inputView dicKey={'英文名'}
                                 required={true} 
-                                bt_text={passenger.FirstName || passenger.GivenName} 
+                                bt_text={
+                                    /[^a-zA-Z'\s]/.test(passenger.FirstName || passenger.GivenName || '') ? '' : (passenger.FirstName || passenger.GivenName || '')
+                                } 
                                 _placeholder={'名'} 
                                 warm_text={'需与证件一致'} 
                                 _callBack={(text)=>{
-                                        passenger.FirstName = text;
-                                        passenger.GivenName = text;
-                                        this.setState({});
+                                        if (!text || !Util.RegEx.isEnName(text)) {
+                                            passenger.FirstName = text;
+                                            passenger.GivenName = text;
+                                            this.setState({});
+                                            return;
+                                        }
+                                        const now = Date.now();
+                                        if (now - this._enNameToastTs > 800) {
+                                            this._enNameToastTs = now;
+                                            this.toastMsg('英文名只能输入字母');
+                                        }
                                 }}
                     />:null
                 }
@@ -445,10 +480,22 @@ class HotelEditPassengerScreen extends SuperView {
                                     <HighLight name='姓（拼音）' style={{fontSize:14,color:Theme.commonFontColor}}/>
                                     <CustomText text='Surname' />
                                 </View>
-                                <CustomeTextInput style={styles.input} placeholder={'须与登机证件姓一致'} value={passenger.LastName || passenger.Surname} onChangeText={text => {
-                                    passenger.LastName = text;
-                                    passenger.Surname = text;
-                                    this.setState({});
+                                <CustomeTextInput style={styles.input} placeholder={'须与登机证件姓一致'} 
+                                value={
+                                    /[^a-zA-Z'\s]/.test(passenger.LastName || passenger.Surname || '') ? '' : (passenger.LastName || passenger.Surname || '')
+                                } 
+                                onChangeText={text => {
+                                    if (!text || !Util.RegEx.isEnName(text)) {
+                                        passenger.LastName = text;
+                                        passenger.Surname = text;
+                                        this.setState({});
+                                        return;
+                                    }
+                                    const now = Date.now();
+                                    if (now - this._enNameToastTs > 800) {
+                                        this._enNameToastTs = now;
+                                        this.toastMsg('英文姓只能输入字母');
+                                    }
                                 }} />
                                     {
                                         ((showName && !select) || (!showName && !select))?
@@ -470,10 +517,22 @@ class HotelEditPassengerScreen extends SuperView {
                                     <HighLight name='名（拼音）' style={{fontSize:14,color:Theme.commonFontColor}} />
                                     <CustomText text='Given name' />
                                 </View>
-                                <CustomeTextInput style={[styles.input,{flex:7}]} value={passenger.FirstName || passenger.GivenName} placeholder={'须与登机证件名一致'} onChangeText={text => {
-                                    passenger.FirstName = text;
-                                    passenger.GivenName = text;
-                                    this.setState({});
+                               <CustomeTextInput style={[styles.input,{flex:7}]} 
+                                    value={
+                                        /[^a-zA-Z'\s]/.test(passenger.FirstName || passenger.GivenName || '') ? '' : (passenger.FirstName || passenger.GivenName || '')
+                                    } 
+                                    placeholder={'须与登机证件名一致'} onChangeText={text => {
+                                    if (!text || !Util.RegEx.isEnName(text)) {
+                                        passenger.FirstName = text;
+                                        passenger.GivenName = text;
+                                        this.setState({});
+                                        return;
+                                    }
+                                    const now = Date.now();
+                                    if (now - this._enNameToastTs > 800) {
+                                        this._enNameToastTs = now;
+                                        this.toastMsg('英文名只能输入字母');
+                                    }
                                 }} />
                             </View>
                         </View>
@@ -606,7 +665,7 @@ class HotelEditPassengerScreen extends SuperView {
                                             this.setState({})
                                         }
                                     }}
-                                    required={customerInfo.EmailRequired}
+                                    required={false}
                     />
                     :null
                 }

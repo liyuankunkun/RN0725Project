@@ -31,6 +31,7 @@ class FlightEditPassengerScreen extends SuperView {
 
     constructor(props) {
         super(props);
+        this._enNameToastTs = 0;
         this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this.passenger = Util.Encryption.clone(this.params.passenger || { Gender: null });
         this._navigationHeaderView = {
@@ -78,6 +79,8 @@ class FlightEditPassengerScreen extends SuperView {
             CardTravel1:this.passenger.CardTravel1 || [],//常客卡去程
             CardTravel2:this.passenger.CardTravel2 || [],//常客卡返程
             Country_list:[],
+            selcetName:this.passenger.selcetName ? this.passenger.selcetName : false,
+
         }
     }
 
@@ -118,7 +121,7 @@ class FlightEditPassengerScreen extends SuperView {
 
     _finishBtnClick = () => {
         const { passenger } = this; 
-        const {select,CardTravel1,CardTravel2} = this.state;
+        const {select,CardTravel1,CardTravel2,selcetName} = this.state;
         if(this.state.AdditionIfo){
             passenger.AdditionInfo = this.state.AdditionIfo;
             passenger.Addition = this.state.AdditionIfo;
@@ -128,17 +131,31 @@ class FlightEditPassengerScreen extends SuperView {
         let CHName2 = (passenger.CertificateType==="护照" || passenger.CertificateType==="Passport") && passenger.NationalCode==="CN"
         let ENName = (passenger.CertificateType==="护照" || passenger.CertificateType==="Passport")
         let ENName2 = !(passenger.CertificateType==="身份证" || passenger.CertificateType==="Chinese ID Card" ||passenger.CertificateType==="港澳台居民居住证"|| passenger.CertificateType==="Residence Permit for Hong Kong,Macau and Taiwan Residents")
-        if (!passenger.Name && (CHName || CHName2)) {
+        let certType = Util.Read.certificateType2(passenger.CertificateType)
+
+        if (!passenger.Name && ( (CHName || CHName2) || (certType===128 && selcetName) )) {
             this.toastMsg('姓名不能为空');
             return;
         }
-        if ((!passenger.Surname && !passenger.LastName) && (ENName || ENName2)) {
+        if ((!passenger.Surname && !passenger.LastName) && ( (ENName || ENName2) || (certType===128 && !selcetName) )) {
             this.toastMsg('英文姓不能为空');
             return;
         }
-        if ((!passenger.GivenName && !passenger.FirstName) && (ENName || ENName2)) {
+        if(passenger.Surname || passenger.LastName){
+            if(Util.RegEx.isEnName(passenger.Surname) || Util.RegEx.isEnName(passenger.LastName)){
+                this.toastMsg('英文姓只能输入字母');
+                return
+            }
+        }
+        if ((!passenger.GivenName && !passenger.FirstName) && ( (ENName || ENName2) || (certType===128 && !selcetName) )) {
             this.toastMsg('英文名不能为空');
             return;
+        }
+        if(passenger.GivenName || passenger.FirstName){
+            if(Util.RegEx.isEnName(passenger.GivenName) || Util.RegEx.isEnName(passenger.FirstName)){
+                this.toastMsg('英文名只能输入字母');
+                return
+            }
         }
         if(!passenger.CertificateType){
             this.toastMsg('证件类型不能为空');
@@ -333,6 +350,7 @@ class FlightEditPassengerScreen extends SuperView {
                 }
             }
         }
+        passenger.selcetName = this.state.selcetName;
         this.params.callBack(passenger);
         this.pop();
     }
@@ -546,7 +564,7 @@ class FlightEditPassengerScreen extends SuperView {
         }
         const { profileCommonEnum } = this.props;
         let flightBookingConfig = profileCommonEnum?.data?.bookingConfig?.flightBookingConfig;
-        const { isEditSerinumber, isEditMobile, AdditionIfo, customer_info, user_info,select,CardTravellerIDArr,CardTravel1,CardTravel2,sexOptions,Country_list } = this.state;
+        const { isEditSerinumber, isEditMobile, AdditionIfo, customer_info, user_info,select,CardTravellerIDArr,CardTravel1,CardTravel2,sexOptions,Country_list,selcetName } = this.state;
         if (passenger.Birthday) {
             if (passenger.Birthday === '0001-01-01T00:00:00') {
                 passenger.Birthday = '';
@@ -644,58 +662,92 @@ class FlightEditPassengerScreen extends SuperView {
                     : null
                 }
                 {
-                    CHName || CHName2 ?
+                    CHName || CHName2 || selcetName  ?
                     <View style={[styles.row,{borderBottomColor:passenger.Name? Theme.lineColor:Theme.redColor}]}>
                         <HighLight  name={'姓名'} value={passenger.Name} style={{color:Theme.commonFontColor, fontSize:14}}/>
                         <CustomeTextInput style={{ flex: 5,marginLeft:15 }} value={passenger.Name} onChangeText={text => { passenger.Name = text; this.setState({}) }} placeholder='须与登机证件姓名一致' />
-                        {/* <TouchableHighlight underlayColor='transparent' onPress={this._changeLanguage}>
-                            <View style={{ flexDirection: 'row', alignItems: "center" }}>
-                                <View style={{ backgroundColor: !select ? Theme.theme : Theme.normalBg, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }}>
-                                    <CustomText text='中' style={{ color: !select ? '#fff' : Theme.commonFontColor}} />
+                        {
+                            certType === 128 ?
+                            <TouchableHighlight underlayColor='transparent' onPress={this._changeName}>
+                                <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                                    <View style={{ backgroundColor: selcetName ? Theme.theme : Theme.aidFontColor, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }}>
+                                        <CustomText text='中' style={{ color: '#fff'}} />
+                                    </View>
+                                    <View style={{ backgroundColor: !selcetName ? Theme.theme : Theme.aidFontColor, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopRightRadius: 3, borderBottomRightRadius: 3 }}>
+                                        <CustomText text='EN' style={{ color: '#fff'}} />
+                                    </View>
                                 </View>
-                                <View style={{ backgroundColor: select ? Theme.theme : Theme.normalBg, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopRightRadius: 3, borderBottomRightRadius: 3 }}>
-                                    <CustomText text='EN' style={{ color: select ? '#fff' : Theme.commonFontColor}} />
-                                </View>
-                            </View>
-                        </TouchableHighlight> */}
+                            </TouchableHighlight> : null
+                        }
                     </View>
                     :null
 
                 }
                 {
-                 ENName || ENName2 ?
+                 (ENName || ENName2) && !selcetName ?
                     <View>
                          <View style={styles.row}>
                                 <View style={{flexDirection:'column' ,flex:3}}>
                                     <HighLight name='姓（拼音）' style={{fontSize:14,color:Theme.commonFontColor}}/>
                                     <CustomText text='Surname' />
                                 </View>
-                                <CustomeTextInput style={styles.input} placeholder={'须与登机证件姓一致'} value={passenger.LastName || passenger.Surname} onChangeText={text => {
-                                    passenger.LastName = text;
-                                    passenger.Surname = text;
-                                    this.setState({});
-                                }} />
-                                 {/* <TouchableHighlight underlayColor='transparent' onPress={this._changeLanguage}>
-                                    <View style={{ flexDirection: 'row', alignItems: "center" }}>
-                                        <View style={{ backgroundColor: !select ? Theme.theme : Theme.aidFontColor, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }}>
-                                            <CustomText text='中' style={{ color: "white" }} />
+                                <CustomeTextInput style={styles.input} placeholder={'须与登机证件姓一致'} 
+                                                  value={
+                                                    /[^a-zA-Z'\s]/.test(passenger.LastName || passenger.Surname || '') ? '' : (passenger.LastName || passenger.Surname || '')
+                                                  } 
+                                                  onChangeText={text => {
+                                                    if (!text || !Util.RegEx.isEnName(text)) {
+                                                        passenger.LastName = text;
+                                                        passenger.Surname = text;
+                                                        this.setState({});
+                                                        return;
+                                                    }
+                                                    const now = Date.now();
+                                                    if (now - this._enNameToastTs > 800) {
+                                                        this._enNameToastTs = now;
+                                                        this.toastMsg('英文姓只能输入字母');
+                                                    }
+                                                  }} 
+                                />
+                                {
+                                    certType === 128 ?
+                                    <TouchableHighlight underlayColor='transparent' onPress={this._changeName}>
+                                        <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                                            <View style={{ backgroundColor: selcetName ? Theme.theme : Theme.aidFontColor, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }}>
+                                                <CustomText text='中' style={{ color: "white" }} />
+                                            </View>
+                                            <View style={{ backgroundColor: !selcetName ? Theme.theme : Theme.aidFontColor, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopRightRadius: 3, borderBottomRightRadius: 3 }}>
+                                                <CustomText text='EN' style={{ color: "white" }} />
+                                            </View>
                                         </View>
-                                        <View style={{ backgroundColor: select ? Theme.theme : Theme.aidFontColor, height: 22, width: 36, alignItems: "center", justifyContent: 'center', borderTopRightRadius: 3, borderBottomRightRadius: 3 }}>
-                                            <CustomText text='EN' style={{ color: "white" }} />
-                                        </View>
-                                    </View>
-                                </TouchableHighlight> */}
+                                    </TouchableHighlight>:null
+                                }
+
                             </View>
                             <View style={styles.row}>
                                 <View style={{flexDirection:'column' ,flex:3}}>
                                     <HighLight name='名（拼音）' style={{fontSize:14,color:Theme.commonFontColor}} />
                                     <CustomText text='Given name' />
                                 </View>
-                                <CustomeTextInput style={styles.input} value={passenger.FirstName || passenger.GivenName} placeholder={'须与登机证件名一致'} onChangeText={text => {
-                                    passenger.FirstName = text;
-                                    passenger.GivenName = text;
-                                    this.setState({});
-                                }} />
+                                <CustomeTextInput style={styles.input} 
+                                        value={
+                                            /[^a-zA-Z'\s]/.test(passenger.FirstName || passenger.GivenName || '') ? '' : (passenger.FirstName || passenger.GivenName)
+                                        } 
+                                        placeholder={'须与登机证件名一致'} 
+                                        onChangeText={text => {
+                                            if (!text || !Util.RegEx.isEnName(text)) {
+                                                passenger.FirstName = text;
+                                                passenger.GivenName = text;
+                                                this.setState({});
+                                                return;
+                                            }
+                                            const now = Date.now();
+                                            if (now - this._enNameToastTs > 800) {
+                                                this._enNameToastTs = now;
+                                                this.toastMsg('英文名只能输入字母');
+                                            }
+                                        }} 
+                                />
                             </View>
                     </View>
                     :null
@@ -895,6 +947,12 @@ class FlightEditPassengerScreen extends SuperView {
             }
             </View>
         )
+    }
+
+    _changeName = () => {
+       this.setState({
+           selcetName:!this.state.selcetName
+       })
     }
 
     _toSelectCounty = (passenger) => {

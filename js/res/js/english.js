@@ -608,6 +608,11 @@ export default {
     "{{noun}}出生日期不能为空":"The date of birth of {{noun}} cannot be empty",
     "提前付款":"Advance Payment",
     "\n*改期手续费一旦支付，航司不予退还":"*The rebooking fee shall not be refunded by the airline once payment is made.",
+    "退出关联账号":"Exit associated account",
+    "英文姓只能包含字母":"English surname can only contain letters",
+    "英文名只能包含字母":"English name can only contain letters",
+    "本页面展示的协议房型及价格仅供参考，如遇大型展会、赛事或活动期间，价格可能无法适用，最终价格及房态以酒店确认为准。":"The room category and rate displayed on this page are for reference only, it may not be available during major exhibitions, events, or activities which shall subject to change per hotel’s confirmation.",
+    "暂无预订权限，请联系差旅顾问":"No booking permission, please contact the FCM travel consultant."
     
     
 

@@ -47,13 +47,13 @@ class PersonalList extends React.Component {
                 //     img: require('../../../res/Uimage/flightFloder/_flight.png'),
                 //     cleck:false,
                 // }
+                // ,{
+                //     key: 'travelller',
+                //     name: '常用乘机人',
+                //     img: require('../../../res/Uimage/group_line.png'),
+                //     cleck:false,
+                // }
                 ,{
-                    key: 'travelller',
-                    name: '常用乘机人',
-                    img: require('../../../res/Uimage/group_line.png'),
-                    cleck:false,
-                },
-                {
                     key: 'authorize',
                     name: '预订人授权',
                     img: require('../../../res/Uimage/file_user.png'),
@@ -95,10 +95,41 @@ class PersonalList extends React.Component {
                 cleck:false
             }
         ]
+
+        let travelllerList = [
+            {
+                key: 'travelller',
+                name: '常用乘机人',
+                img: require('../../../res/Uimage/group_line.png'),
+                cleck:false,
+            }
+        ]
+        let authorizedApprove = [
+            {
+                key: 'authorizedApprove',
+                name: '审批授权人',
+                img: require('../../../res/Uimage/shield_user.png'),
+                cleck:false
+            }
+        ]
+        UserInfoDao.getCustomerInfo().then(customerInfo=>{
+            if(customerInfo&&customerInfo.Setting&&customerInfo.Setting.EnableUnusedAirlineTickets){
+                this.state.listArray=this.state.listArray.concat(unflightList);
+            }
+            if(!customerInfo?.Setting?.OrderPageConfig?.HideAuthorizedApprovePerson){
+                this.state.listArray=this.state.listArray.concat(authorizedApprove);
+            }
+            this.setState({
+                customerInfo:customerInfo,
+            })
+        })
         
         UserInfoDao.getUserInfo().then(userInfo=>{
             if((userInfo&&userInfo.Permission&8)==8){//本人有帮他人预订权限时显示
                 this.state.listArray=this.state.listArray.concat(handTravelList);
+            }
+            if((userInfo&&userInfo.Permission&2)==2){
+                this.state.listArray=this.state.listArray.concat(travelllerList);
             }
             this.setState({
                 userInfo:userInfo,
@@ -106,15 +137,7 @@ class PersonalList extends React.Component {
         }).catch(error => {
             this.toastMsg(error.message || '获取数据异常');
         })
-        UserInfoDao.getCustomerInfo().then(customerInfo=>{
-            if(customerInfo&&customerInfo.Setting&&customerInfo.Setting.EnableUnusedAirlineTickets){
-                this.state.listArray=this.state.listArray.concat(unflightList);
-            }
-            this.setState({
-                customerInfo:customerInfo,
-            })
-        }) 
-
+       
         CommonService.OrderHubInvoiceRight().then(response => {//获取是否展示invoice
             if (response && JSON.parse(response).success) {
                 this.state.listArray=invoiceList.concat(this.state.listArray);
@@ -154,6 +177,8 @@ class PersonalList extends React.Component {
             NavigationUtils.push(this.props.navigation, 'AddTravelerScreen',{userInfo});
         } else if (item.key === 'travelerInfoManage') {
             NavigationUtils.push(this.props.navigation, 'HandersListScreen');
+        } else if (item.key === 'authorizedApprove') {
+            NavigationUtils.push(this.props.navigation, 'AddApprovalScreen');
         }
         // else if (item.key === 'chunqiu') {
         //     NavigationUtils.push(this.props.navigation, 'ChunqiuLoginScreen');
@@ -162,7 +187,8 @@ class PersonalList extends React.Component {
 
     _renderItem = (item, index) => {
         return (
-            <TouchableHighlight key={index} onPress={this._toDetail.bind(this, item.key)} underlayColor='transparent'>
+            <TouchableHighlight key={index} onPress={this._toDetail.bind(this, item.key)}
+             underlayColor='transparent'>
                 <View style={[{ flexDirection: 'row', backgroundColor: 'white', paddingRight: 10 }, index === listArray.length - 1 ? null : curStyle.listBottom,]}>
                     {
                         item.color ? <View style={{ marginHorizontal: 15, marginVertical: 10, width: 25, height: 25, borderRadius: 25, backgroundColor: item.color, justifyContent: 'center', alignItems: 'center' }}>
@@ -200,10 +226,10 @@ class PersonalList extends React.Component {
                             item.key === 'tainLink' && !customerInfo?.Addition?.HasTrainAuth ? null :
                             <TouchableHighlight key={index} underlayColor='transparent'  
                                  onPress={this._toDetail.bind(this, item)}
-                                 onLongPress={()=>{
-                                    item.cleck = !item.cleck
-                                    this.setState({})  
-                                 }}
+                                //  onLongPress={()=>{
+                                //     item.cleck = !item.cleck
+                                //     this.setState({})  
+                                //  }}
                                  onPressOut={this._toDetail.bind(this, item)}
                                  style={{paddingHorizontal:20}}
                                  delayLongPress={300} // 适当延长长按触发时间

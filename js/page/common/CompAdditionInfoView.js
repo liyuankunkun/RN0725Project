@@ -95,7 +95,7 @@ class CompAdditionInfoView extends React.Component {
     }
 
     render() {
-        const {fromNo,customerInfo,AdditionIfo,DicList1,PdfDictList,NoApproval} = this.props;
+        const {fromNo,customerInfo,AdditionIfo,DicList1,PdfDictList,NoApproval,haveHotel} = this.props;
         //找到AdditionIfo.DictItemList中和PdfDictList中名称相同的对象，并将PdfDictList中对象的属性值赋给AdditionIfo.DictItemList中对象        
         if(PdfDictList&&PdfDictList.length>0){
             PdfDictList.forEach((pdfItem,index)=>{
@@ -116,19 +116,21 @@ class CompAdditionInfoView extends React.Component {
                             item.DictCode === obj.Code
                         );
                         // console.log("itemIndex",itemIndex)
-                        //     if(obj.NeedInput&&itemIndex ){
-                        //         itemIndex.Id = obj.Id
-                        //         itemIndex.DictId = obj.Id
-                        //         itemIndex.DictName = obj.Name
-                        //         itemIndex.DictEnName = obj.EnName
-                        //         itemIndex.Sort = obj.Sort
-                        //         itemIndex.Remark = obj.Remark
-                        //         itemIndex.EnRemark = obj.EnRemark
-                        //         itemIndex.ShowInOrder = obj.ShowInOrder
-                        //         itemIndex.ItemName = obj.ItemName
-                        //         itemIndex.DictCode = obj.Code
-                        //         itemIndex.NeedInput = obj.NeedInput
-                        //    }
+                            if(obj.NeedInput&&itemIndex ){
+                                // itemIndex.Id = obj.Id
+                                // itemIndex.DictId = obj.Id
+                                // itemIndex.DictName = obj.Name
+                                // itemIndex.DictEnName = obj.EnName
+                                // itemIndex.Sort = obj.Sort
+                                // itemIndex.Remark = obj.Remark
+                                // itemIndex.EnRemark = obj.EnRemark
+                                // itemIndex.ShowInOrder = obj.ShowInOrder
+                                // itemIndex.ItemName = obj.ItemName
+                                // itemIndex.DictCode = obj.Code
+                                // itemIndex.NeedInput = obj.NeedInput
+                                itemIndex.IsShowWhenMissingHotelUnitInMassOrder = obj.IsShowWhenMissingHotelUnitInMassOrder
+
+                           }
                        return (
                         obj.BusinessCategory&fromNo && obj.ShowInOrder? //判断指定业务
                             (
@@ -173,6 +175,7 @@ class CompAdditionInfoView extends React.Component {
                                             select_DicList={()=>{
                                                 this._toSelectDicList(itemIndex)
                                             }}
+                                            haveHotel={haveHotel}
                             />
                             
                         :null

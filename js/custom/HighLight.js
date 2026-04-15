@@ -7,9 +7,10 @@ import {
 } from 'react-native';
 import CustomText from './CustomText';
 import CustomeTextInput from './CustomTextInput';
-import Theme from './../res/styles/Theme';
+import ToastView from './ToastView';
+import Theme from '../res/styles/Theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Util from './../util/Util';
+import Util from '../util/Util';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
@@ -82,10 +83,15 @@ export class TitleView2 extends React.Component {
  * 
  */
 export class Bt_inputView extends React.Component {
+    constructor(props) {
+        super(props);
+        this._enNameToastTs = 0;
+    }
     render() {
-        const { dicKey, bt_text, _placeholder, warm_text, _callBack,_onFocus,_onBlur, keyboardType,required,no_editable,_haveInfoAler,_clickOnpress} = this.props;
+        const { dicKey, bt_text, _placeholder, warm_text, _callBack,_onFocus,_onBlur, keyboardType,required,no_editable,_haveInfoAler,_clickOnpress,isEnName} = this.props;
+        const displayValue = (isEnName && bt_text && /[^a-zA-Z'\s]/.test(bt_text)) ? '' : bt_text;
         return (
-            <View style={[styles.row, { borderBottomColor: required ? ( bt_text ? Theme.lineColor : Theme.redColor ) : Theme.lineColor}]}>
+            <View style={[styles.row, { borderBottomColor: required ? ( displayValue ? Theme.lineColor : Theme.redColor ) : Theme.lineColor}]}>
                 <View style={{flexDirection:'row',alignItems:'center',flex:Util.Parse.isChinese()?0:3}}>
                     <CustomText text={dicKey} style={styles.textsy}/>
                     {required ? <CustomText text={'*'} style={{  color:'red',fontSize:18,marginTop:3}} /> : null}
@@ -99,7 +105,7 @@ export class Bt_inputView extends React.Component {
                 <CustomeTextInput style={styles.input} 
                     placeholder={_placeholder}
                     editable={no_editable?false:true} 
-                    value={bt_text}
+                    value={displayValue}
                     onFocus={() =>{
                         _onFocus?_onFocus():null
                     }}
@@ -108,10 +114,21 @@ export class Bt_inputView extends React.Component {
                     }}
                     keyboardType={keyboardType} 
                     onChangeText={text => {
-                        _callBack(text)
+                        const next = isEnName ? (text || '').replace(/[^a-zA-Z'\s]/g, '') : text;
+                        if (isEnName && text !== next) {
+                            const now = Date.now();
+                            if (now - this._enNameToastTs > 800) {
+                                this._enNameToastTs = now;
+                                this._toast && this._toast.show('必须输入英文字母');
+                            }
+                        }
+                        _callBack(next)
                     }} 
                 />
-                {warm_text ? <CustomText text={warm_text} style={{ color:Theme.theme }} /> : null}
+                <ToastView ref={ref => this._toast = ref} position={'center'} />
+                <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 10 }}>
+                    {warm_text ? <CustomText text={warm_text} style={{ color: Theme.theme }} /> : null}
+                </View>
             </View>       
         );
     }
@@ -168,8 +185,9 @@ export class SelectView extends React.Component {
                              <CustomText style={{color:Theme.theme}} text={'添加'}/>
                              </View>
                              :
-                             <Ionicons name={'chevron-forward'} size={20} color={'lightgray'} />
+                             <Ionicons name={'ios-arrow-forward'} size={20} color={'lightgray'} />
                         }
+                        {/* <Ionicons name={'ios-arrow-forward'} size={20} color={'lightgray'} /> */}
                     </TouchableOpacity>
             </View>
         )
@@ -183,12 +201,14 @@ export class SelectView extends React.Component {
  */
 export class InfoDicView extends React.Component {
     render() {
-        const {index,obj,itemIndex,value_Change,select_DicList,editable} = this.props;
+        const {index,obj,itemIndex,value_Change,select_DicList,editable,haveHotel} = this.props;
         return (
+            !haveHotel || !obj.IsShowWhenMissingHotelUnitInMassOrder?
             <View key={index} style={{flexDirection: 'column',  borderBottomWidth: 1,borderBottomColor: obj.IsRequire&& (!itemIndex || !itemIndex.ItemName)? Theme.redColor :Theme.lineColor,marginBottom:10 }}>
                 {obj.IsRequire?<HighLight name={obj.Name}  style={styles.textsy}/> : <CustomText text={obj.Name} style={{ color:Theme.commonFontColor,fontSize:14,marginTop:12 }} />}
+                <View>
                 {
-                    obj.NeedInput ?
+                    obj.NeedInput?
                         <View >
                             <CustomeTextInput 
                                               style={{ height:40,marginLeft:-3 }} 
@@ -207,10 +227,11 @@ export class InfoDicView extends React.Component {
                                             select_DicList()
                                         }} 
                             />
-                            <Ionicons name={'chevron-forward'} size={20} color={'lightgray'} />
+                            <Ionicons name={'ios-arrow-forward'} size={20} color={'lightgray'} />
                         </View>
                 }
-            </View>
+                </View>
+            </View>:null
         );
     }
 }

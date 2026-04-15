@@ -24,6 +24,7 @@ import Key from '../../res/styles/Key';
 class TrainEditPassengerScreen extends SuperView {
     constructor(props) {
         super(props);
+        this._enNameToastTs = 0;
         this.params = (props.route && props.route.params) || (props.navigation && props.navigation.state && props.navigation.state.params) || {};
         this.passenger = Util.Encryption.clone(this.params.passenger || {  Gender: 1 ,CertificateType:'身份证'});
         this._navigationHeaderView = {
@@ -132,9 +133,23 @@ class TrainEditPassengerScreen extends SuperView {
             this.toastMsg('英文姓不能为空');
             return;
         }
+        if(passenger.Surname || passenger.LastName){
+            let EnglishName = passenger.Surname || passenger.LastName
+            if(Util.RegEx.isEnName(EnglishName)){
+                this.toastMsg('英文姓只能包含字母');
+                return;
+            }
+        }
         if ((!passenger.GivenName && !passenger.FirstName) && (ENName || ENName1)) {
             this.toastMsg('英文名不能为空');
             return;
+        }
+        if(passenger.GivenName || passenger.FirstName){
+            let EnglishName = passenger.FirstName || passenger.GivenName
+            if(Util.RegEx.isEnName(EnglishName)){
+                this.toastMsg('英文名只能包含字母');
+                return;
+            }
         }
         if(ENName1 || ENName){
             passenger.Name = passenger.Surname +'/'+ passenger.GivenName
@@ -498,9 +513,17 @@ class TrainEditPassengerScreen extends SuperView {
                             <CustomText text='Surname' />
                         </View>
                         <CustomeTextInput style={styles.input} placeholder={'须与登机证件姓一致'} value={passenger.LastName || passenger.Surname} onChangeText={text => {
-                            passenger.LastName = text;
-                            passenger.Surname = text;
-                            this.setState({});
+                            if (!text || !Util.RegEx.isEnName(text)) {
+                                passenger.LastName = text;
+                                passenger.Surname = text;
+                                this.setState({});
+                                return;
+                            }
+                            const now = Date.now();
+                            if (now - this._enNameToastTs > 800) {
+                                this._enNameToastTs = now;
+                                this.toastMsg('英文姓只能输入字母');
+                            }
                         }} />
                             <TouchableHighlight underlayColor='transparent' onPress={() => {this.setState({select:!select})}}>
                                 <View style={{ flexDirection: 'row', alignItems: "center" }}>
@@ -519,9 +542,17 @@ class TrainEditPassengerScreen extends SuperView {
                             <CustomText text='Given name' />
                         </View>
                         <CustomeTextInput style={[styles.input,{flex:7}]} value={passenger.FirstName || passenger.GivenName} placeholder={'须与登机证件名一致'} onChangeText={text => {
-                            passenger.FirstName = text;
-                            passenger.GivenName = text;
-                            this.setState({});
+                            if (!text || !Util.RegEx.isEnName(text)) {
+                                passenger.FirstName = text;
+                                passenger.GivenName = text;
+                                this.setState({});
+                                return;
+                            }
+                            const now = Date.now();
+                            if (now - this._enNameToastTs > 800) {
+                                this._enNameToastTs = now;
+                                this.toastMsg('英文名只能输入字母');
+                            }
                         }} />
                     </View>
                 </View>

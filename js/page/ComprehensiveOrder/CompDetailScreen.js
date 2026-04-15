@@ -934,6 +934,12 @@ class CompDetailScreen extends SuperView {
      _addMassege=()=>{
          const { baseInfo, customerInfo,profileArr,applyAddtionInfo,PdfDictList,fileList } = this.state;
          if(!baseInfo){return}
+         let haveHotel = false;
+         baseInfo.OrderItems&&baseInfo.OrderItems.forEach(item => {
+             if(item.Category == 4 || item.Category == 6){//业务包含国内酒店或者国际酒店时
+                 haveHotel = true;
+             }
+         })
          let DicList1 = []
          if(baseInfo.AdditionInfo&&baseInfo.AdditionInfo.length>0 && baseInfo.ApplyId==0){
             baseInfo.AdditionInfo={
@@ -960,6 +966,7 @@ class CompDetailScreen extends SuperView {
                     profileArr[index].NextId = item.NextId
                     profileArr[index].Remark = item.Remark
                     profileArr[index].RemarkNo = item.RemarkNo
+                    profileArr[index].IsShowWhenMissingHotelUnitInMassOrder = item.IsShowWhenMissingHotelUnitInMassOrder
                     // profileArr[index].ShowInOrder = item.ShowInOrder
                 }
                 DicList1 = profileArr
@@ -991,6 +998,7 @@ class CompDetailScreen extends SuperView {
                         fromNo = {128}//综合订单Profile数值  BusinessCategory
                         PdfDictList={fileList&&fileList.length>0 ? PdfDictList :null}
                         NoApproval={NoApproval}
+                        haveHotel={haveHotel}
                  />
             </View>
          )
@@ -1554,6 +1562,13 @@ class CompDetailScreen extends SuperView {
                 }
             })
          }
+
+        let haveHotel = false
+        baseInfo.OrderItems&&baseInfo.OrderItems.forEach(item => {
+             if(item.Category == 4 || item.Category == 6){//业务包含国内酒店或者国际酒店时
+                 haveHotel = true;
+             }
+        })
         if(baseInfo.AdditionInfo&& baseInfo.AdditionInfo.DictItemList&&baseInfo.AdditionInfo.DictItemList.length>0){
             let shouldReturn = baseInfo.AdditionInfo.DictItemList.some((item) => {
                 if(customerInfo.CustomerHandleName==="Ontheway.TMC.CustomerHandlers.Shell.ShellHandler"&& item.DictName==="approver's email address" && !NoApproval && customerInfo.selectedNeed){
@@ -1562,9 +1577,11 @@ class CompDetailScreen extends SuperView {
                         return true;
                     }
                 }else if(item.IsRequire && item.ShowInOrder){
-                    if(!item.ItemName){
-                        this.toastMsg(item.DictName + '不能为空');
-                        return true;
+                    if(!haveHotel || !item.IsShowWhenMissingHotelUnitInMassOrder){
+                        if(!item.ItemName){
+                            this.toastMsg(item.DictName + '不能为空');
+                            return true;
+                        }
                     }
                 }
                 if(item.ItemName && item.FormatRegexp){//正则提示

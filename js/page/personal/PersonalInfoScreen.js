@@ -548,59 +548,59 @@ export default class PersonalInfoScreen extends SuperView {
         )
     }
 
-    _approvalOfficer = () => {
-        const {addApproveAgentList,passenger} = this.state;
-        return(
-            <SelectView titleName={'审批授权人'}
-                        required={false}
-                        _clickOnpress={()=>{
-                            this.showAlertView('设置审批授权人，可以代替您审批');
-                        }}
-                        _haveInfoAler={true}
-                        _selectName={''} 
-                        _callBack={()=>{
-                            if(addApproveAgentList.length<2){
-                                this.push('SearchBookerScreen',{
-                                    _from:'审批授权人',
-                                    callBack:(data)=>{
-                                        addApproveAgentList.push(data);
-                                        passenger.AuthorizedApprovePerson = addApproveAgentList
-                                        this.setState({},()=>{
+    // _approvalOfficer = () => {
+    //     const {addApproveAgentList,passenger} = this.state;
+    //     return(
+    //         <SelectView titleName={'审批授权人'}
+    //                     required={false}
+    //                     _clickOnpress={()=>{
+    //                         this.showAlertView('设置审批授权人，可以代替您审批');
+    //                     }}
+    //                     _haveInfoAler={true}
+    //                     _selectName={''} 
+    //                     _callBack={()=>{
+    //                         if(addApproveAgentList.length<2){
+    //                             this.push('SearchBookerScreen',{
+    //                                 _from:'审批授权人',
+    //                                 callBack:(data)=>{
+    //                                     addApproveAgentList.push(data);
+    //                                     passenger.AuthorizedApprovePerson = addApproveAgentList
+    //                                     this.setState({},()=>{
                                             
-                                        })
-                                    }
-                                })
-                            }
-                        }}
-            /> 
-        )
-    }
-    _addApproveAgent = () => {
-        const {addApproveAgentList,passenger} = this.state;
-        return(
-            addApproveAgentList&&addApproveAgentList.map(( item,index )=>{
-                return( 
-                    <View style={styles.shouquanrenItemStyle} >
-                        <View style={{flexDirection:'row',alignItems:'center'}}>
-                        <CustomText text={addApproveAgentList[index].Name?addApproveAgentList[index].Name:'请选择'} style={{color:Theme.commonFontColor,fontSize:14}}></CustomText>
-                        <CustomText text={' '} style={{color:Theme.commonFontColor,fontSize:14}}></CustomText>
-                        <CustomText text={addApproveAgentList[index].Email?addApproveAgentList[index].Email:''} style={{color:Theme.commonFontColor,fontSize:14}}></CustomText>
-                        </View>
-                        <AntDesign name={'delete'} 
-                                size={20}
-                                style={{marginLeft:10}} 
-                                color={Theme.theme} 
-                                onPress={()=>{
-                                      addApproveAgentList.splice(index,1);
-                                      passenger.AuthorizedApprovePerson = addApproveAgentList
-                                      this.setState({})
-                                }} 
-                        />
-                 </View>
-                )
-            })
-      )
-    }
+    //                                     })
+    //                                 }
+    //                             })
+    //                         }
+    //                     }}
+    //         /> 
+    //     )
+    // }
+    // _addApproveAgent = () => {
+    //     const {addApproveAgentList,passenger} = this.state;
+    //     return(
+    //         addApproveAgentList&&addApproveAgentList.map(( item,index )=>{
+    //             return( 
+    //                 <View style={styles.shouquanrenItemStyle} >
+    //                     <View style={{flexDirection:'row',alignItems:'center'}}>
+    //                     <CustomText text={addApproveAgentList[index].Name?addApproveAgentList[index].Name:'请选择'} style={{color:Theme.commonFontColor,fontSize:14}}></CustomText>
+    //                     <CustomText text={' '} style={{color:Theme.commonFontColor,fontSize:14}}></CustomText>
+    //                     <CustomText text={addApproveAgentList[index].Email?addApproveAgentList[index].Email:''} style={{color:Theme.commonFontColor,fontSize:14}}></CustomText>
+    //                     </View>
+    //                     <AntDesign name={'delete'} 
+    //                             size={20}
+    //                             style={{marginLeft:10}} 
+    //                             color={Theme.theme} 
+    //                             onPress={()=>{
+    //                                   addApproveAgentList.splice(index,1);
+    //                                   passenger.AuthorizedApprovePerson = addApproveAgentList
+    //                                   this.setState({})
+    //                             }} 
+    //                     />
+    //              </View>
+    //             )
+    //         })
+    //   )
+    // }
 
     _showInsurece1 = () => {
         let text = "1. 您的座位偏好可在航空预定时向航司申请, 由于航班或者航司原因可能会申请失败. \n2. 部分航司不支持在线座位偏好申请. \n3. 最终航班座位的确认以在值机时与航司确认的结果为准."
@@ -677,23 +677,29 @@ export default class PersonalInfoScreen extends SuperView {
                 />
                 <Bt_inputView dicKey={'英文姓'}
                             required={false} 
-                            bt_text={passenger.LastName} 
+                            bt_text={
+                                passenger.LastName
+                            } 
                             _placeholder={'姓氏'} 
                             warm_text={'需与证件一致'} 
                             _callBack={(text)=>{
                                 passenger.LastName = text;
                                 this.setState({});
                             }}
+                            isEnName = {true}
                 />
                 <Bt_inputView dicKey={'英文名'}
                                   required={false} 
-                                  bt_text={passenger.FirstName} 
+                                  bt_text={
+                                    passenger.FirstName
+                                  } 
                                   _placeholder={'名'} 
                                   warm_text={'需与证件一致'} 
                                   _callBack={(text)=>{
                                         passenger.FirstName = text;
                                         this.setState({});
                                   }}
+                                  isEnName = {true}
                 />
                 <Bt_inputView dicKey={'手机号'}
                                   required={false} 
@@ -803,8 +809,8 @@ export default class PersonalInfoScreen extends SuperView {
                 />
                 {this._CardTravel()}
                 {this._flightFavor()}
-                {this._approvalOfficer()}
-                {this._addApproveAgent()}
+                {/* {this._approvalOfficer()}
+                {this._addApproveAgent()} */}
                 <CustomActioSheet ref={o => this.actionSheet = o} options={options} onPress={this._handlePress} />
                 <CustomActioSheet ref={o => this.seatActionSheet = o} options={seatOPtions} onPress={this._seatHandlePress} />
                 <CustomActioSheet ref={o => this.mealActionSheet = o} options={mealOptions} cancelButtonText={'清空'} onPress={this._mealHandlePress} />

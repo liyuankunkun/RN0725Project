@@ -19,6 +19,11 @@ const Util = {
             // let hotelNameReg = /^(?:[\u4e00-\u9fa5]+)(?:●[\u4e00-\u9fa5]+)*$|^[a-zA-Z0-9]+?\/[/()a-zA-Z]*[a-zA-Z\.]+$/;
             let hotelNameReg = /^([\u4e00-\u9fa5]{2,}|[a-zA-Z/\s]{4,})$/;
             return hotelNameReg.test(hotelName);
+        },
+        isEnName: (name) => {
+              //只包含字母
+              let reg = /[^a-zA-Z'\s]/g;
+              return reg.test(name);
         }
     },
     Parse: {

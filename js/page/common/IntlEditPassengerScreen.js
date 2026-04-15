@@ -94,16 +94,16 @@ export default class IntlEditPassengerScreen extends SuperView {
             this.toastMsg('请填写英文名');
             return;
         }
-        // 添加英文字符串校验
-        const englishRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)*$/;
-        if (!englishRegex.test(passenger.LastName)) {
-            this.toastMsg('英文姓必须是英文字符');
-            return;
-        }
-        if (!englishRegex.test(passenger.FirstName)) {
-            this.toastMsg('英文名必须是英文字符');
-            return;
-        }
+        // // 添加英文字符串校验
+        // const englishRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)*$/;
+        // if (!englishRegex.test(passenger.LastName)) {
+        //     this.toastMsg('英文姓必须是英文字符');
+        //     return;
+        // }
+        // if (!englishRegex.test(passenger.FirstName)) {
+        //     this.toastMsg('英文名必须是英文字符');
+        //     return;
+        // }
         if (!passenger.Name) {
             this.toastMsg('请填写姓名');
             return;
@@ -530,6 +530,7 @@ export default class IntlEditPassengerScreen extends SuperView {
                                         passenger.LastName = text;
                                         this.setState({});
                                   }}
+                                  isEnName={true}
                         />
                         <Bt_inputView dicKey={'英文名'}
                                   required={true} 
@@ -540,6 +541,7 @@ export default class IntlEditPassengerScreen extends SuperView {
                                         passenger.FirstName = text;
                                         this.setState({});
                                   }}
+                                  isEnName={true}
                         />
                         <Bt_inputView dicKey={'手机号'}
                                   required={true} 

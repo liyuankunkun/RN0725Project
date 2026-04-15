@@ -54,6 +54,10 @@ class HotelIndexScreen extends SuperView {
         this.backPress = new BackPress({ backPress: () => this._backBtnClick() })
         let day1 = Util.Date.toDate(this.params.BeginTime);
         let day2 = Util.Date.toDate(this.params.EndTime);
+        if(!this.params.BeginTime){
+            //day1默认当天
+            day1 = new Date();
+        }
         this.state = {
             hotelDep: null,
             intlHotelDep: null,

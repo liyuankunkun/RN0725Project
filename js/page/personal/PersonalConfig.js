@@ -6,6 +6,7 @@ import NoticeListScreen from './NoticeListScreen';
 import NoticeDetailScreen from './NoticeDetailScreen';
 import TravellerListScreen from './TravellerListScreen';
 import PersonalInfoScreen from './PersonalInfoScreen';
+// import AddApprovalScreen from './AddApprovalScreen';
 // import FeedBackScreen from './FeedBackScreen';
 import AboutUsScreen from './AboutUsScreen';
 // import managerCenterScreen from './managerCenterScreen'
@@ -81,6 +82,9 @@ const PersonalConfig = {
     },
     PersonalInfo: {
         screen: PersonalInfoScreen
+    },
+    AddApprovalScreen: {
+        screen: AddApprovalScreen
     },
     // FeedBack: {
     //     screen: FeedBackScreen

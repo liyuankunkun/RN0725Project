@@ -228,6 +228,9 @@ class TrainTicketDetailScreen extends SuperView {
         const {comp_checkTravellers, compSwitch,customerInfo_userInfo,apply} = this.props;
         let TravellersNum = comp_checkTravellers&&comp_checkTravellers.Travellers&&comp_checkTravellers.Travellers.length     
         let list = ticket.ticketTypes;
+        const DisableBook =
+            !!customerInfo_userInfo?.customerInfo?.Setting?.DisableBookingOnlyView &&
+            !customerInfo_userInfo?.userInfo?.EnableBookingIfCustomerDisable;
         return list.map((item, index) => {
             return (
                 <View style={{ flexDirection: 'row', paddingVertical: 15, alignItems: 'center',borderBottomWidth:1, borderColor:Theme.lineColor }} key={index}>
@@ -257,11 +260,15 @@ class TrainTicketDetailScreen extends SuperView {
                     {
                         compSwitch?
                             isOnlyApply? 
-                            <TouchableHighlight style={ curStyle.btn3} 
+                            <TouchableHighlight style={DisableBook ? curStyle.btnEnable : curStyle.btn3} 
                                             activeOpacity={1} 
                                             underlayColor='lightgray' 
                                             disabled={ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1 ? true : false} 
                                             onPress={()=>{ 
+                                                if (DisableBook && (item.seatCount || !(TravellersNum>item.seatCount))) {
+                                                    this.toastMsg("暂无预订权限，请联系差旅顾问");
+                                                    return;
+                                                }
                                                 this.toastMsg("请选择申请单预订"); 
                                             }}
                             >
@@ -270,20 +277,33 @@ class TrainTicketDetailScreen extends SuperView {
                             :
                             <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
                                 {   TravellersNum>item.seatCount?
-                                    <View style={{backgroundColor:customerInfo&&customerInfo.Setting.TrainGrabTicket? 'rgba(117,192,152,1)':'lightgray',
+                                    <TouchableHighlight style={{backgroundColor:DisableBook ? 'lightgray' : (customerInfo&&customerInfo.Setting.TrainGrabTicket? 'rgba(117,192,152,1)':'lightgray'),
                                                                 borderRadius: 2,
                                                                 width: 60,
                                                                 height: 30,
                                                                 justifyContent: 'center',
                                                                 alignItems: 'center'}} 
                                     activeOpacity={1} underlayColor='rgba(117,170,152,1)'
-                                    disabled={customerInfo&&customerInfo.Setting.TrainGrabTicket?false:true} 
+                                    disabled={!(customerInfo&&customerInfo.Setting.TrainGrabTicket)} 
+                                    onPress={() => {
+                                        if (DisableBook && (item.seatCount || !(TravellersNum>item.seatCount))) {
+                                            this.toastMsg("暂无预订权限，请联系差旅顾问");
+                                            return;
+                                        }
+                                        this._trainReserve(item);
+                                    }}
                                     >
                                     <CustomText style={{ color: 'white',fontSize:14 }} text={customerInfo&&customerInfo.Setting.TrainGrabTicket?'抢票':'预订'} />
-                                    </View>
+                                    </TouchableHighlight>
                                     :
-                                    <TouchableHighlight style={((ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1) ||(this.props.highRisk && this.props.highRisk.Level==2)) ? curStyle.btnEnable : curStyle.btn} activeOpacity={1} underlayColor='lightgray' disabled={ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1 ? true : false} 
-                                    onPress={this._trainReserve.bind(this, item)}>
+                                    <TouchableHighlight style={(DisableBook || (ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1) ||(this.props.highRisk && this.props.highRisk.Level==2)) ? curStyle.btnEnable : curStyle.btn} activeOpacity={1} underlayColor='lightgray' disabled={ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1 ? true : false} 
+                                    onPress={() => {
+                                        if (DisableBook && (item.seatCount || !(TravellersNum>item.seatCount))) {
+                                            this.toastMsg("暂无预订权限，请联系差旅顾问");
+                                            return;
+                                        }
+                                        this._trainReserve(item);
+                                    }}>
                                        <CustomText style={{ color: 'white',fontSize:14 }} text='预订' />
                                     </TouchableHighlight>
                                 }
@@ -292,11 +312,15 @@ class TrainTicketDetailScreen extends SuperView {
                             </View>
                         :
                         isOnlyApply? 
-                        <TouchableHighlight style={ curStyle.btn3} 
+                        <TouchableHighlight style={DisableBook ? curStyle.btnEnable : curStyle.btn3} 
                                            activeOpacity={1} 
                                            underlayColor='lightgray' 
                                            disabled={ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1 ? true : false} 
                                            onPress={()=>{ 
+                                              if (DisableBook && (item.seatCount || !(TravellersNum>item.seatCount))) {
+                                                  this.toastMsg("暂无预订权限，请联系差旅顾问");
+                                                  return;
+                                              }
                                               this.toastMsg("请选择申请单预订"); 
                                            }}
                         >
@@ -305,19 +329,31 @@ class TrainTicketDetailScreen extends SuperView {
                        :
                         <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
                                 {   item.seatCount==0?
-                                    <TouchableHighlight style={{backgroundColor:customerInfo&&customerInfo.Setting.TrainGrabTicket? 'rgba(117,192,152,1)':'lightgray',
+                                    <TouchableHighlight style={{backgroundColor:DisableBook ? 'lightgray' : (customerInfo&&customerInfo.Setting.TrainGrabTicket? 'rgba(117,192,152,1)':'lightgray'),
                                                                 borderRadius: 2,
                                                                 width: 60,
                                                                 height: 30,
                                                                 justifyContent: 'center',
                                                                 alignItems: 'center'}} 
                                     activeOpacity={1} underlayColor='rgba(117,170,152,1)'
-                                    disabled={customerInfo&&customerInfo.Setting.TrainGrabTicket?false:true} 
-                                    onPress={this._trainReserve.bind(this, item)}>
+                                    disabled={!(customerInfo&&customerInfo.Setting.TrainGrabTicket)} 
+                                    onPress={() => {
+                                        if (DisableBook && (item.seatCount || !(TravellersNum>item.seatCount))) {
+                                            this.toastMsg("暂无预订权限，请联系差旅顾问");
+                                            return;
+                                        }
+                                        this._trainReserve(item);
+                                    }}>
                                     <CustomText style={{ color: 'white',fontSize:14 }} text={customerInfo&&customerInfo.Setting.TrainGrabTicket?'抢票':'预订'} />
                                     </TouchableHighlight>
                                     :
-                                    <TouchableHighlight style={((ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1) || (this.props.highRisk && this.props.highRisk.Level==2)) ? curStyle.btnEnable : curStyle.btn} activeOpacity={1} underlayColor='#D16403' disabled={ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1 ? true : false} onPress={this._trainReserve.bind(this, item)}>
+                                    <TouchableHighlight style={(DisableBook || (ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1) || (this.props.highRisk && this.props.highRisk.Level==2)) ? curStyle.btnEnable : curStyle.btn} activeOpacity={1} underlayColor='#D16403' disabled={ticket.ViolationMode == 1 && item.checkSeat == 0 && feeType == 1 ? true : false} onPress={() => {
+                                        if (DisableBook && (item.seatCount || !(TravellersNum>item.seatCount))) {
+                                            this.toastMsg("暂无预订权限，请联系差旅顾问");
+                                            return;
+                                        }
+                                        this._trainReserve(item);
+                                    }}>
                                     <CustomText style={{ color: 'white',fontSize:14 }} text='预订' />
                                     </TouchableHighlight>
                                 }

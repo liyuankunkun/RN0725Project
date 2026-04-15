@@ -287,7 +287,7 @@ class PassengerView extends React.Component {
                                         {/* {
                                             (data.FirstName&&data.LastName&& (!Util.Parse.isChinese()))?<CustomText text={data.FirstName+data.LastName} />:<CustomText text={data.Name} />
                                         } */}
-                                        {from === 'train' || CHName || CHName2?
+                                        {from === 'train' || CHName || CHName2 || data.selcetName ?
                                             <View style={{flexDirection:'row',alignItems:'center',paddingVertical:10}}>      
                                                 <CustomText text={data.Name?data.Name:'请填写姓名'} style={{color:data.Name?'black':Theme.darkColor}} />
                                             </View>: 
