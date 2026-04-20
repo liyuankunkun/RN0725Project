@@ -295,7 +295,8 @@ class CompDetailScreen extends SuperView {
                 BusinessCategory:item.BusinessCategory,
                 NextId:item.NextId,
                 ShowInOrder:item.ShowInOrder,
-                DictCode:item.Code
+                DictCode:item.Code,
+                IsShowWhenMissingHotelUnitInMassOrder:item.IsShowWhenMissingHotelUnitInMassOrder
             }))
         this.setState({
             profileArr:profileArr,

@@ -427,6 +427,19 @@ class TrainEditPassengerScreen extends SuperView {
             }
         })
 
+        if(passenger.Surname && Util.RegEx.isEnName(passenger.Surname)){
+            passenger.Surname = '';
+        }
+        if(passenger.LastName && Util.RegEx.isEnName(passenger.LastName)){
+            passenger.LastName = '';
+        }
+        if(passenger.FirstName && Util.RegEx.isEnName(passenger.FirstName)){
+            passenger.FirstName = '';
+        }
+        if(passenger.GivenName && Util.RegEx.isEnName(passenger.GivenName)){
+            passenger.GivenName = '';
+        }
+
         return (
             <View style={{ flex:1}}>
             {

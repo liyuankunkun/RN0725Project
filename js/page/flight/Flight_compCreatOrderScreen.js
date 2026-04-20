@@ -687,7 +687,11 @@ class Flight_compCreateOrderScreen extends SuperView {
                 let TypeCer = Util.Read.certificateType2(obj.CertificateType)
                 let CHName = TypeCer === 1 || (TypeCer === 32768 && obj.NationalCode==="CN")|| TypeCer === 512
                 let CHName2 = (TypeCer == 2 && obj.NationalCode == "CN")
+                let selcetName = obj.selcetName && Utils.Read.certificateType2(obj.CertificateType) === 128
                 let UseEnglish = (CHName || CHName2) ? false : true
+                if(selcetName){
+                    UseEnglish = false
+                }
                 if(!Util.Parse.isChinese()){
                     function formatDate(date) {
                         const year = date.getFullYear();
@@ -750,6 +754,34 @@ class Flight_compCreateOrderScreen extends SuperView {
                        }
                    }
                }
+                if(UseEnglish && !obj.Surname ){
+                    this.toastMsg('英文姓不能为空');
+                    return;
+                }
+                if(UseEnglish && !obj.GivenName){
+                    this.toastMsg('英文名不能为空');
+                    return;
+                }
+               if(UseEnglish&& (obj.Surname && obj.GivenName)){
+                    if(Util.RegEx.isEnName(obj.Surname)){
+                        this.toastMsg('英文姓必须是英文字符');
+                        return;
+                    }
+                    if(Util.RegEx.isEnName(obj.GivenName)){
+                        this.toastMsg('英文名必须是英文字符');
+                        return;
+                    }
+                }
+                if(UseEnglish&& (obj.LastName && obj.FirstName)){
+                    if(Util.RegEx.isEnName(obj.LastName)){
+                        this.toastMsg('英文姓必须是英文字符');
+                        return;
+                    }
+                    if(Util.RegEx.isEnName(obj.FirstName)){
+                        this.toastMsg('英文名必须是英文字符');
+                        return;
+                    }
+                }
 
                 TravellerList.push({
                     Sex: obj.Sex?obj.Sex:obj.Gender?obj.Gender:1,
@@ -857,7 +889,43 @@ class Flight_compCreateOrderScreen extends SuperView {
                         }
                     }
                }
-                
+               obj.CertificateType = obj.CertificateType.trim()
+                let TypeCer = Util.Read.certificateType2(obj.CertificateType)
+                let CHName = TypeCer === 1 || (TypeCer === 32768 && obj.NationalCode==="CN")|| TypeCer === 512
+                let CHName2 = (TypeCer == 2 && obj.NationalCode == "CN")
+                let selcetName = obj.selcetName && Utils.Read.certificateType2(obj.CertificateType) === 128
+                let UseEnglish = (CHName || CHName2) ? false : true
+                if(selcetName){
+                    UseEnglish = false
+                }
+                if(UseEnglish && !obj.Surname ){
+                    this.toastMsg('英文姓不能为空');
+                    return;
+                }
+                if(UseEnglish && !obj.GivenName){
+                    this.toastMsg('英文名不能为空');
+                    return;
+                }
+                if(UseEnglish && (obj.Surname && obj.GivenName)){
+                    if(Util.RegEx.isEnName(obj.Surname)){
+                        this.toastMsg('英文姓必须是英文字符');
+                        return;
+                    }
+                    if(Util.RegEx.isEnName(obj.GivenName)){
+                        this.toastMsg('英文名必须是英文字符');
+                        return;
+                    }
+                }
+                if(UseEnglish && (obj.LastName && obj.FirstName)){
+                    if(Util.RegEx.isEnName(obj.LastName)){
+                        this.toastMsg('英文姓必须是英文字符');
+                        return;
+                    }
+                    if(Util.RegEx.isEnName(obj.FirstName)){
+                        this.toastMsg('英文名必须是英文字符');
+                        return;
+                    }
+                }
                 TravellerList.push({
                     Sex: obj.Sex,
                     Name: obj.Name,
@@ -1587,7 +1655,7 @@ class Flight_compCreateOrderScreen extends SuperView {
                     <TouchableHighlight underlayColor='transparent' onPress={this._showPriceDetail}>
                         <View style={{ flexDirection: "row", flex: 1, justifyContent: "flex-end", alignItems: "center", height: 50 }}>
                             <CustomText style={{ fontSize: 12, color: 'gray' }} text='明细' />
-                            <Ionicons name={showPriceDetail ? 'ios-arrow-up' : 'ios-arrow-down'} size={16} color={'gray'} style={{ marginRight: 5,marginLeft:2 }} />
+                            <Ionicons name={showPriceDetail ? 'ios-arrow-up' : 'ios-arrow-down'} size={16} color={'gray'} style={{ marginLeft:2 }} />
                         </View>
                     </TouchableHighlight>
                     <TouchableHighlight underlayColor='transparent' onPress={this._comp_orderBtnClick}>
@@ -1720,7 +1788,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Theme.theme,
-        marginRight:10,
         borderRadius:2,
     },
     alertStyle:{

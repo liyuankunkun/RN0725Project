@@ -652,7 +652,11 @@ class FlightCreateOrderScreen extends SuperView {
             let TypeCer = Util.Read.certificateType2(obj.CertificateType)
             let CHName = TypeCer === 1 || (TypeCer === 32768 && obj.NationalCode==="CN")|| TypeCer === 512
             let CHName2 = (TypeCer == 2 && obj.NationalCode == "CN")
+            let selcetName = obj.selcetName && Utils.Read.certificateType2(obj.CertificateType) === 128
             let UseEnglish = (CHName || CHName2) ? false : true
+            if(selcetName){
+                UseEnglish = false
+            }
             if(!Util.Parse.isChinese()){
                 function formatDate(date) {
                     const year = date.getFullYear();
@@ -711,6 +715,24 @@ class FlightCreateOrderScreen extends SuperView {
                                 return;
                             }
                     }
+                }
+            }
+            if(UseEnglish && !obj.Surname ){
+                this.toastMsg('英文姓不能为空');
+                return;
+            }
+            if(UseEnglish && !obj.GivenName){
+                this.toastMsg('英文名不能为空');
+                return;
+            }
+            if(UseEnglish && (obj.Surname || obj.GivenName)){
+                if(Util.RegEx.isEnName(obj.Surname)){
+                    this.toastMsg('英文姓必须是英文字符');
+                    return;
+                }
+                if(Util.RegEx.isEnName(obj.GivenName)){
+                    this.toastMsg('英文名必须是英文字符');
+                    return;
                 }
             }
             TravellerList.push({
@@ -825,6 +847,33 @@ class FlightCreateOrderScreen extends SuperView {
                                 return;
                             }
                     }
+                }
+            }
+            obj.CertificateType = obj.CertificateType.trim()
+            let TypeCer = Util.Read.certificateType2(obj.CertificateType)
+            let CHName = TypeCer === 1 || (TypeCer === 32768 && obj.NationalCode==="CN")|| TypeCer === 512
+            let CHName2 = (TypeCer == 2 && obj.NationalCode == "CN")
+            let UseEnglish = (CHName || CHName2) ? false : true
+            let selcetName = obj.selcetName && Utils.Read.certificateType2(obj.CertificateType) === 128
+            if(selcetName){
+                UseEnglish = false
+            }
+            if(UseEnglish && !obj.Surname ){
+                this.toastMsg('英文姓不能为空');
+                return;
+            }
+            if(UseEnglish&& !obj.GivenName){
+                this.toastMsg('英文名不能为空');
+                return;
+            }
+            if(UseEnglish &&(obj.Surname || obj.GivenName)){
+                if(Util.RegEx.isEnName(obj.Surname)){
+                    this.toastMsg('英文姓必须是英文字符');
+                    return;
+                }
+                if(Util.RegEx.isEnName(obj.GivenName)){
+                    this.toastMsg('英文名必须是英文字符');
+                    return;
                 }
             }
             TravellerList.push({

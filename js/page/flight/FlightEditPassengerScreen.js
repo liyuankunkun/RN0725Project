@@ -127,11 +127,11 @@ class FlightEditPassengerScreen extends SuperView {
             passenger.Addition = this.state.AdditionIfo;
         }     
         const { index ,goFlightData,backFlightData,customerInfo,from} = this.params;
+        let certType = Util.Read.certificateType2(passenger.CertificateType)
         let CHName = passenger.CertificateType==="身份证" || passenger.CertificateType==="Chinese ID Card" || passenger.CertificateType==="海员证" || passenger.CertificateType==="Seaman's Book"|| passenger.CertificateType==="港澳台居民居住证"|| passenger.CertificateType==="Residence Permit for Hong Kong,Macau and Taiwan Residents"
         let CHName2 = (passenger.CertificateType==="护照" || passenger.CertificateType==="Passport") && passenger.NationalCode==="CN"
         let ENName = (passenger.CertificateType==="护照" || passenger.CertificateType==="Passport")
         let ENName2 = !(passenger.CertificateType==="身份证" || passenger.CertificateType==="Chinese ID Card" ||passenger.CertificateType==="港澳台居民居住证"|| passenger.CertificateType==="Residence Permit for Hong Kong,Macau and Taiwan Residents")
-        let certType = Util.Read.certificateType2(passenger.CertificateType)
 
         if (!passenger.Name && ( (CHName || CHName2) || (certType===128 && selcetName) )) {
             this.toastMsg('姓名不能为空');
@@ -650,6 +650,18 @@ class FlightEditPassengerScreen extends SuperView {
                 nationalzhName = Util.Parse.isChinese() ? item.Name : item.EnName
             }
         })
+        if(passenger.Surname && Util.RegEx.isEnName(passenger.Surname)){
+            passenger.Surname = '';
+        }
+        if(passenger.LastName && Util.RegEx.isEnName(passenger.LastName)){
+            passenger.LastName = '';
+        }
+        if(passenger.FirstName && Util.RegEx.isEnName(passenger.FirstName)){
+            passenger.FirstName = '';
+        }
+        if(passenger.GivenName && Util.RegEx.isEnName(passenger.GivenName)){
+            passenger.GivenName = '';
+        }
         return (
             <View style={{ flex:1}}>
             {

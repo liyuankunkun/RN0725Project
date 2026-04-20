@@ -395,6 +395,18 @@ class HotelEditPassengerScreen extends SuperView {
         }
         const { isEditSerinumber ,isEditMobile,SerialNumber,AdditionIfo,CardTravel,select} = this.state;
         let showName =  (passenger.NationalCode == 'CN' || passenger.NationalCode == 'HK' || passenger.NationalCode == 'MO' || passenger.NationalCode == 'TW')
+        if(passenger.Surname && Util.RegEx.isEnName(passenger.Surname)){
+            passenger.Surname = '';
+        }
+        if(passenger.LastName && Util.RegEx.isEnName(passenger.LastName)){
+            passenger.LastName = '';
+        }
+        if(passenger.FirstName && Util.RegEx.isEnName(passenger.FirstName)){
+            passenger.FirstName = '';
+        }
+        if(passenger.GivenName && Util.RegEx.isEnName(passenger.GivenName)){
+            passenger.GivenName = '';
+        }
         return (
             <View style={{ flex:1}}>
             {
@@ -429,23 +441,16 @@ class HotelEditPassengerScreen extends SuperView {
                     <Bt_inputView dicKey={'英文姓'}
                                   required={true} 
                                   bt_text={
-                                    /[^a-zA-Z'\s]/.test(passenger.LastName|| passenger.Surname || '') ? '' : (passenger.LastName|| passenger.Surname || '')
+                                    passenger.LastName|| passenger.Surname
                                   } 
                                   _placeholder={'姓氏'} 
                                   warm_text={'需与证件一致'} 
                                   _callBack={(text)=>{
-                                        if (!text || !Util.RegEx.isEnName(text)) {
-                                            passenger.LastName = text;
-                                            passenger.Surname = text;
-                                            this.setState({});
-                                            return;
-                                        }
-                                        const now = Date.now();
-                                        if (now - this._enNameToastTs > 800) {
-                                            this._enNameToastTs = now;
-                                            this.toastMsg('英文姓只能输入字母');
-                                        }
+                                        passenger.LastName = text;
+                                        passenger.Surname = text;
+                                        this.setState({});
                                 }}
+                                isEnName={true}
                     />:null
                 }
                 {
@@ -453,23 +458,16 @@ class HotelEditPassengerScreen extends SuperView {
                     <Bt_inputView dicKey={'英文名'}
                                 required={true} 
                                 bt_text={
-                                    /[^a-zA-Z'\s]/.test(passenger.FirstName || passenger.GivenName || '') ? '' : (passenger.FirstName || passenger.GivenName || '')
+                                    passenger.FirstName || passenger.GivenName                                
                                 } 
                                 _placeholder={'名'} 
                                 warm_text={'需与证件一致'} 
                                 _callBack={(text)=>{
-                                        if (!text || !Util.RegEx.isEnName(text)) {
-                                            passenger.FirstName = text;
-                                            passenger.GivenName = text;
-                                            this.setState({});
-                                            return;
-                                        }
-                                        const now = Date.now();
-                                        if (now - this._enNameToastTs > 800) {
-                                            this._enNameToastTs = now;
-                                            this.toastMsg('英文名只能输入字母');
-                                        }
+                                        passenger.FirstName = text;
+                                        passenger.GivenName = text;
+                                        this.setState({});
                                 }}
+                                isEnName={true}
                     />:null
                 }
                 {

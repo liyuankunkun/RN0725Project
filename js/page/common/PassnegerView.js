@@ -279,6 +279,7 @@ class PassengerView extends React.Component {
                  }
                 let CHName = data.CertificateType==="身份证" || data.CertificateType==="Chinese ID Card" || ((data.CertificateType==="海员证" || data.CertificateType==="Seaman's Book")&&data.NationalCode==="CN")|| data.CertificateType==="港澳台居民居住证"|| data.CertificateType==="Residence Permit for Hong Kong,Macau and Taiwan Residents"
                 let CHName2 = (data.CertificateType==="护照" || data.CertificateType==="Passport") && data.NationalCode==="CN"
+                let selcetName = data.selcetName && Utils.Read.certificateType2(data.CertificateType) === 128
                 return (
                     <View key={index} style={data.highLight?styles.viewStyle2:styles.viewStyle1}>
                         <TouchableHighlight underlayColor='transparent' onPress={this._editPassengerRowClick.bind(this, index, type, cusInsurances)}>
@@ -287,7 +288,7 @@ class PassengerView extends React.Component {
                                         {/* {
                                             (data.FirstName&&data.LastName&& (!Util.Parse.isChinese()))?<CustomText text={data.FirstName+data.LastName} />:<CustomText text={data.Name} />
                                         } */}
-                                        {from === 'train' || CHName || CHName2 || data.selcetName ?
+                                        {from === 'train' || CHName || CHName2 || selcetName ?
                                             <View style={{flexDirection:'row',alignItems:'center',paddingVertical:10}}>      
                                                 <CustomText text={data.Name?data.Name:'请填写姓名'} style={{color:data.Name?'black':Theme.darkColor}} />
                                             </View>: 

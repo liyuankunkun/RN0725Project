@@ -525,6 +525,7 @@ export default class EditHandPassengerScreen extends SuperView {
                                 passenger.LastName = text;
                                 this.setState({});
                             }}
+                            isEnName={true}
                 />
                 <Bt_inputView dicKey={'英文名'}
                                   required={true} 
@@ -535,6 +536,7 @@ export default class EditHandPassengerScreen extends SuperView {
                                         passenger.FirstName = text;
                                         this.setState({});
                                   }}
+                                  isEnName={true}
                 />
                 <Bt_inputView dicKey={'手机号'}
                                   required={true} 

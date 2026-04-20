@@ -169,13 +169,14 @@ class ComprehPassnegerView extends React.Component {
                     }
                     let CHName = data.CertificateType==="身份证" || data.CertificateType==="Chinese ID Card" || ((data.CertificateType==="海员证" || data.CertificateType==="Seaman's Book")&&data.NationalCode==="CN")|| data.CertificateType==="港澳台居民居住证"|| data.CertificateType==="Residence Permit for Hong Kong,Macau and Taiwan Residents"
                     let CHName2 = (data.CertificateType==="护照" || data.CertificateType==="Passport") && data.NationalCode==="CN"
+                    let selcetName = ((from === 'flight' && data.selcetName) || ( from === 'train' && !data.selectEn)) && Utils.Read.certificateType2(data.CertificateType) === 128
                     return (
                         <View key={index} style={styles.viewStyle}>
                             <TouchableHighlight underlayColor='transparent' onPress={this._editPassengerRowClick.bind(this, index, type)}>
                                 <View style={{ flexDirection: 'row',  alignItems: 'center', borderTopColor: Theme.lineColor, borderTopWidth: 1, paddingHorizontal: 10}}>
                                     <View style={{ }}>
                                         {
-                                            CHName || CHName2?
+                                            CHName || CHName2 ||selcetName?
                                             <CustomText text={data.Name}  style={{ paddingVertical: 10}}/>
                                             :
                                             <View style={{flexDirection:'column'}}> 
